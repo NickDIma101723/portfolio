@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Navbar from '../components/Navbar';
+import Lenis from 'lenis';
 
 export default function Home() {
   const [loadingPhase, setLoadingPhase] = useState('black');
@@ -26,9 +28,40 @@ export default function Home() {
     };
   }, []);
 
+  // Separate effect for Lenis - only after animations complete
+  useEffect(() => {
+    if (loadingPhase === 'image-small') {
+      // Wait for image animation to fully complete before enabling smooth scroll
+      const initScrollTimer = setTimeout(() => {
+        const lenis = new Lenis({
+          duration: 1.8,
+          easing: (t) => 1 - Math.pow(1 - t, 4),
+          lerp: 0.05,
+          wheelMultiplier: 0.8,
+          touchMultiplier: 1.5,
+        });
+
+        function raf(time: number) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
+
+        requestAnimationFrame(raf);
+
+        return () => {
+          lenis.destroy();
+        };
+      }, 4000); // Wait 4 seconds after image-small state starts
+
+      return () => {
+        clearTimeout(initScrollTimer);
+      };
+    }
+  }, [loadingPhase]);
+
   return (
-    <div className={`min-h-screen flex items-center justify-center overflow-hidden ${
-      loadingPhase === 'black' ? 'bg-white' : 'bg-white'
+    <div className={`min-h-screen ${
+      loadingPhase === 'black' ? 'bg-white overflow-hidden' : 'bg-white'
     }`}>
 
       <div className={`w-screen h-screen bg-white transition-opacity duration-1000 relative overflow-hidden ${
@@ -83,21 +116,31 @@ export default function Home() {
           <div 
             className={`relative rounded-lg flex items-center justify-center mx-auto transition-all duration-[3000ms] ease-in-out overflow-hidden ${
               loadingPhase === 'image-small'
-                ? 'w-[95vw] h-[35vh] sm:w-[90vw] sm:h-[40vh] md:w-[85vw] md:h-[45vh] lg:w-[95vw] lg:h-[55vh] xl:w-[120rem] xl:h-[45rem] 2xl:w-[130rem] 2xl:h-[50rem]' 
+                ? 'w-[92vw] h-[45vh] sm:w-[87vw] sm:h-[50vh] md:w-[82vw] md:h-[55vh] lg:w-[92vw] lg:h-[65vh] xl:w-[115rem] xl:h-[56rem] 2xl:w-[125rem] 2xl:h-[61rem]' 
                 : 'w-screen h-screen rounded-none'
             }`}
             style={{
-              marginTop: loadingPhase === 'image-small' ? '-10vh' : '0'
+              marginTop: loadingPhase === 'image-small' ? '-4vh' : '0'
             }}
           >
             <Image
-              src="/portfolio-image.svg"
+              src="/test.jpg"
               alt="Portfolio Image"
               fill
               className="object-cover"
             />
           </div>
         </div>
+      </div>
+
+      {/* Navigation Bar */}
+      <Navbar loadingPhase={loadingPhase} />
+
+      {/* Simple scrollable content */}
+      <div className={`${loadingPhase === 'image-small' ? 'block' : 'hidden'}`}>
+        <div id="about" className="h-screen"></div>
+        <div id="work" className="h-screen"></div>
+        <div id="contact" className="h-screen"></div>
       </div>
     </div>
   );
