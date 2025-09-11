@@ -4,21 +4,18 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
 export default function Home() {
-  const [loadingPhase, setLoadingPhase] = useState('black'); // 'black', 'image-fullscreen', 'image-small'
+  const [loadingPhase, setLoadingPhase] = useState('black');
   const [lineWidth, setLineWidth] = useState('0%');
 
   useEffect(() => {
-    // Start the line animation immediately
     setTimeout(() => {
       setLineWidth('100%');
     }, 100);
 
-    // Phase 1: Black screen for 6 seconds (even slower)
     const blackTimer = setTimeout(() => {
       setLoadingPhase('image-fullscreen');
     }, 6000);
 
-    // Phase 2: Show fullscreen image for 1 second, then zoom out
     const zoomTimer = setTimeout(() => {
       setLoadingPhase('image-small');
     }, 7000);
@@ -31,27 +28,26 @@ export default function Home() {
 
   return (
     <div className={`min-h-screen flex items-center justify-center overflow-hidden ${
-      loadingPhase === 'black' ? 'bg-black' : 'bg-white'
+      loadingPhase === 'black' ? 'bg-white' : 'bg-white'
     }`}>
-      {/* Black loading screen with fade out */}
-      <div className={`w-screen h-screen bg-black transition-opacity duration-1000 relative overflow-hidden ${
+
+      <div className={`w-screen h-screen bg-white transition-opacity duration-1000 relative overflow-hidden ${
         loadingPhase === 'black' ? 'opacity-100' : 'opacity-0 pointer-events-none'
       }`}>
-        {/* Loading line that fills from left to right */}
-        <div className="absolute top-1/2 left-0 transform -translate-y-1/2 w-full h-px bg-white/20">
+      
+        <div className="absolute top-1/2 left-0 transform -translate-y-1/2 w-full h-px bg-black/20">
           <div 
-            className="h-full bg-white transition-all duration-[5000ms] ease-out"
+            className="h-full bg-black transition-all duration-[5000ms] ease-out"
             style={{
               width: lineWidth
             }}
           ></div>
         </div>
         
-        {/* Animated text - NIKO sliding down from top left */}
         <div 
-          className="absolute top-20 left-8 text-white font-black transition-all duration-1500 ease-out"
+          className="absolute top-4 left-2 sm:top-8 sm:left-4 md:top-12 md:left-6 lg:top-16 lg:left-8 xl:top-20 xl:left-8 text-black font-black transition-all duration-1500 ease-out"
           style={{
-            fontSize: '18rem',
+            fontSize: 'clamp(4rem, 12vw, 18rem)',
             fontWeight: 800,
             fontFamily: 'Work Sans, sans-serif',
             lineHeight: 0.9,
@@ -63,11 +59,10 @@ export default function Home() {
           NIKO
         </div>
         
-        {/* Animated text - DIMA sliding up from bottom right */}
         <div 
-          className="absolute bottom-20 right-8 text-white font-black transition-all duration-1500 ease-out"
+          className="absolute bottom-4 right-2 sm:bottom-8 sm:right-4 md:bottom-12 md:right-6 lg:bottom-16 lg:right-8 xl:bottom-20 xl:right-8 text-black font-black transition-all duration-1500 ease-out"
           style={{
-            fontSize: '18rem',
+            fontSize: 'clamp(4rem, 12vw, 18rem)',
             fontWeight: 800,
             fontFamily: 'Work Sans, sans-serif',
             lineHeight: 0.9,
@@ -88,9 +83,12 @@ export default function Home() {
           <div 
             className={`relative rounded-lg flex items-center justify-center mx-auto transition-all duration-[3000ms] ease-in-out overflow-hidden ${
               loadingPhase === 'image-small'
-                ? 'w-[105rem] h-[50rem]' 
+                ? 'w-[95vw] h-[35vh] sm:w-[90vw] sm:h-[40vh] md:w-[85vw] md:h-[45vh] lg:w-[95vw] lg:h-[55vh] xl:w-[120rem] xl:h-[45rem] 2xl:w-[130rem] 2xl:h-[50rem]' 
                 : 'w-screen h-screen rounded-none'
             }`}
+            style={{
+              marginTop: loadingPhase === 'image-small' ? '-10vh' : '0'
+            }}
           >
             <Image
               src="/portfolio-image.svg"
