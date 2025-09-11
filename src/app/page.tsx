@@ -8,6 +8,9 @@ import Lenis from 'lenis';
 export default function Home() {
   const [loadingPhase, setLoadingPhase] = useState('black');
   const [lineWidth, setLineWidth] = useState('0%');
+  const [scrollY, setScrollY] = useState(0);
+  const [isNavigating, setIsNavigating] = useState(false);
+  const [targetSection, setTargetSection] = useState('');
 
   useEffect(() => {
     setTimeout(() => {
@@ -58,6 +61,36 @@ export default function Home() {
       };
     }
   }, [loadingPhase]);
+
+  // Scroll listener effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Handle navigation with zoom effect
+  const handleNavigation = (section: string) => {
+    setIsNavigating(true);
+    setTargetSection(section);
+    
+    // Zoom in effect
+    setTimeout(() => {
+      // Navigate to section
+      const element = document.getElementById(section);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+      
+      // Zoom out effect after navigation
+      setTimeout(() => {
+        setIsNavigating(false);
+      }, 1000);
+    }, 800);
+  };
 
   return (
     <div className={`min-h-screen ${
@@ -114,13 +147,15 @@ export default function Home() {
       }`}>
         <div className="text-center">
           <div 
-            className={`relative rounded-lg flex items-center justify-center mx-auto transition-all duration-[3000ms] ease-in-out overflow-hidden ${
+            className={`relative rounded-lg flex items-center justify-center mx-auto transition-all ease-in-out overflow-hidden ${
               loadingPhase === 'image-small'
-                ? 'w-[92vw] h-[45vh] sm:w-[87vw] sm:h-[50vh] md:w-[82vw] md:h-[55vh] lg:w-[92vw] lg:h-[65vh] xl:w-[115rem] xl:h-[56rem] 2xl:w-[125rem] 2xl:h-[61rem]' 
+                ? 'w-[92vw] h-[45vh] sm:w-[87vw] sm:h-[50vh] md:w-[82vw] md:h-[55vh] lg:w-[92vw] lg:h-[65vh] xl:w-[115rem] xl:h-[56rem] 2xl:w-[105rem] 2xl:h-[50rem]' 
                 : 'w-screen h-screen rounded-none'
+            } ${
+              isNavigating ? 'duration-[800ms] scale-150' : 'duration-[3000ms] scale-100'
             }`}
             style={{
-              marginTop: loadingPhase === 'image-small' ? '-4vh' : '0'
+              marginTop: loadingPhase === 'image-small' ? '0vh' : '0'
             }}
           >
             <Image
@@ -128,13 +163,16 @@ export default function Home() {
               alt="Portfolio Image"
               fill
               className="object-cover"
+              style={{
+                transform: `translateY(${scrollY * 0.1}px)` // Image moving effect - increased vertical movement
+              }}
             />
           </div>
         </div>
       </div>
 
       {/* Navigation Bar */}
-      <Navbar loadingPhase={loadingPhase} />
+      <Navbar loadingPhase={loadingPhase} scrollY={scrollY} />
 
       {/* Simple scrollable content */}
       <div className={`${loadingPhase === 'image-small' ? 'block' : 'hidden'}`}>
