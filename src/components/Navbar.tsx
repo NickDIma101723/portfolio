@@ -64,16 +64,16 @@ export default function Navbar({ loadingPhase, scrollY }: NavbarProps) {
       
       {/* Regular Navbar - visible when not scrolled */}
       <div 
-        className={`flex justify-between items-center pt-8 transition-all duration-700 ease-in-out ${
+        className={`flex justify-between items-center pt-4 sm:pt-6 md:pt-8 transition-all duration-700 ease-in-out ${
           loadingPhase === 'image-small'
-            ? 'w-[96vw] sm:w-[92vw] md:w-[88vw] lg:w-[96vw] xl:w-[125rem] 2xl:w-[115rem]' 
+            ? 'w-[98vw] sm:w-[95vw] md:w-[92vw] lg:w-[90vw] xl:w-[88vw] 2xl:w-[85vw]' 
             : 'w-screen'
         } ${
           isScrolled ? 'opacity-0 pointer-events-none scale-95' : 'opacity-100'
         }`}
       >
         <div 
-          className={`text-black text-xl transition-all duration-800 ease-out ${
+          className={`text-black text-lg sm:text-xl md:text-xl transition-all duration-800 ease-out ${
             loadingPhase === 'image-small' ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
           }`}
           style={{ 
@@ -85,7 +85,7 @@ export default function Navbar({ loadingPhase, scrollY }: NavbarProps) {
           NIKO.STUDIOS
         </div>
         <nav 
-          className={`flex gap-6 text-black text-xl transition-all duration-800 ease-out ${
+          className={`flex gap-3 sm:gap-4 md:gap-6 text-black text-sm sm:text-lg md:text-xl transition-all duration-800 ease-out ${
             loadingPhase === 'image-small' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
           }`}
           style={{ 
@@ -108,7 +108,7 @@ export default function Navbar({ loadingPhase, scrollY }: NavbarProps) {
 
       {/* Circle Navbar - visible when scrolled */}
       <div 
-        className={`fixed top-6 right-12 transition-all duration-700 ease-in-out z-50 ${
+        className={`fixed top-4 right-4 sm:top-5 sm:right-6 md:top-6 md:right-8 transition-all duration-700 ease-in-out z-50 ${
           isScrolled && loadingPhase === 'image-small' 
             ? 'opacity-100 scale-100' 
             : 'opacity-0 scale-50 pointer-events-none'
@@ -116,7 +116,7 @@ export default function Navbar({ loadingPhase, scrollY }: NavbarProps) {
       >
         <div 
           ref={circleRef}
-          className="relative w-24 h-24 bg-black rounded-full flex items-center justify-center cursor-pointer hover:scale-110 transition-all duration-300 ease-out"
+          className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-black rounded-full flex items-center justify-center cursor-pointer hover:scale-110 transition-all duration-300 ease-out"
           onMouseMove={handleMouseMove}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
@@ -127,19 +127,19 @@ export default function Navbar({ loadingPhase, scrollY }: NavbarProps) {
           }}
         >
           {/* Hamburger Lines - animate to X when menu is open */}
-          <div className="flex flex-col justify-center items-end space-y-2.5 pointer-events-none">
+          <div className="flex flex-col justify-center items-end space-y-1.5 sm:space-y-2 md:space-y-2.5 pointer-events-none">
             <div 
               className={`h-0.5 bg-white transition-all duration-500 ease-out ${
                 isMenuOpen 
-                  ? 'w-6 transform rotate-45 translate-y-1.5' 
-                  : isHovering ? 'w-9' : 'w-7'
+                  ? 'w-4 sm:w-5 md:w-6 transform rotate-45 translate-y-1 sm:translate-y-1.5' 
+                  : isHovering ? 'w-6 sm:w-8 md:w-9' : 'w-5 sm:w-6 md:w-7'
               }`}
             ></div>
             <div 
               className={`h-0.5 bg-white transition-all duration-500 ease-out ${
                 isMenuOpen 
-                  ? 'w-6 transform -rotate-45 -translate-y-1.5' 
-                  : isHovering ? 'w-9' : 'w-5'
+                  ? 'w-4 sm:w-5 md:w-6 transform -rotate-45 -translate-y-1 sm:-translate-y-1.5' 
+                  : isHovering ? 'w-6 sm:w-8 md:w-9' : 'w-3 sm:w-4 md:w-5'
               }`}
             ></div>
           </div>

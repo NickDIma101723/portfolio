@@ -149,13 +149,13 @@ export default function Home() {
           <div 
             className={`relative rounded-lg flex items-center justify-center mx-auto transition-all ease-in-out overflow-hidden ${
               loadingPhase === 'image-small'
-                ? 'w-[96vw] h-[55vh] sm:w-[92vw] sm:h-[60vh] md:w-[88vw] md:h-[65vh] lg:w-[96vw] lg:h-[78vh] xl:w-[125rem] xl:h-[85vh] 2xl:w-[115rem] 2xl:h-[82vh]' 
+                ? 'w-[98vw] h-[65vh] sm:w-[95vw] sm:h-[70vh] md:w-[92vw] md:h-[75vh] lg:w-[90vw] lg:h-[80vh] xl:w-[88vw] xl:h-[85vh] 2xl:w-[85vw] 2xl:h-[88vh]' 
                 : 'w-screen h-screen rounded-none'
             } ${
               isNavigating ? 'duration-[800ms] scale-150' : 'duration-[3000ms] scale-100'
             }`}
             style={{
-              marginTop: loadingPhase === 'image-small' ? '-5vh' : '0'
+              marginTop: loadingPhase === 'image-small' ? '3vh' : '0'
             }}
           >
             <Image
