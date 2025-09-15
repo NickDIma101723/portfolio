@@ -93,7 +93,7 @@ export default function Home() {
   };
 
   return (
-    <div className={`min-h-screen ${
+    <div className={`min-h-screen text-sm sm:text-base ${
       loadingPhase === 'black' ? 'bg-white overflow-hidden' : 'bg-white'
     }`}>
 
@@ -149,13 +149,13 @@ export default function Home() {
           <div 
             className={`relative rounded-lg flex items-center justify-center mx-auto transition-all ease-in-out overflow-hidden ${
               loadingPhase === 'image-small'
-                ? 'w-[92vw] h-[45vh] sm:w-[87vw] sm:h-[50vh] md:w-[82vw] md:h-[55vh] lg:w-[92vw] lg:h-[65vh] xl:w-[115rem] xl:h-[56rem] 2xl:w-[105rem] 2xl:h-[50rem]' 
+                ? 'w-[96vw] h-[55vh] sm:w-[92vw] sm:h-[60vh] md:w-[88vw] md:h-[65vh] lg:w-[96vw] lg:h-[78vh] xl:w-[125rem] xl:h-[85vh] 2xl:w-[115rem] 2xl:h-[82vh]' 
                 : 'w-screen h-screen rounded-none'
             } ${
               isNavigating ? 'duration-[800ms] scale-150' : 'duration-[3000ms] scale-100'
             }`}
             style={{
-              marginTop: loadingPhase === 'image-small' ? '0vh' : '0'
+              marginTop: loadingPhase === 'image-small' ? '-5vh' : '0'
             }}
           >
             <Image

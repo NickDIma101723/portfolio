@@ -66,7 +66,7 @@ export default function Navbar({ loadingPhase, scrollY }: NavbarProps) {
       <div 
         className={`flex justify-between items-center pt-8 transition-all duration-700 ease-in-out ${
           loadingPhase === 'image-small'
-            ? 'w-[92vw] sm:w-[87vw] md:w-[82vw] lg:w-[92vw] xl:w-[115rem] 2xl:w-[105rem]' 
+            ? 'w-[96vw] sm:w-[92vw] md:w-[88vw] lg:w-[96vw] xl:w-[125rem] 2xl:w-[115rem]' 
             : 'w-screen'
         } ${
           isScrolled ? 'opacity-0 pointer-events-none scale-95' : 'opacity-100'
