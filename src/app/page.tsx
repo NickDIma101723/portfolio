@@ -23,7 +23,7 @@ export default function Home() {
 
     const zoomTimer = setTimeout(() => {
       setLoadingPhase('image-small');
-    }, 7000);
+    }, 8500);
 
     return () => {
       clearTimeout(blackTimer);
@@ -31,10 +31,9 @@ export default function Home() {
     };
   }, []);
 
-  // Separate effect for Lenis - only after animations complete
   useEffect(() => {
     if (loadingPhase === 'image-small') {
-      // Wait for image animation to fully complete before enabling smooth scroll
+
       const initScrollTimer = setTimeout(() => {
         const lenis = new Lenis({
           duration: 1.8,
@@ -54,7 +53,7 @@ export default function Home() {
         return () => {
           lenis.destroy();
         };
-      }, 4000); // Wait 4 seconds after image-small state starts
+      }, 4000);
 
       return () => {
         clearTimeout(initScrollTimer);
@@ -62,7 +61,6 @@ export default function Home() {
     }
   }, [loadingPhase]);
 
-  // Scroll listener effect
   useEffect(() => {
     const handleScroll = () => {
       setScrollY(window.scrollY);
@@ -72,20 +70,17 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Handle navigation with zoom effect
   const handleNavigation = (section: string) => {
     setIsNavigating(true);
     setTargetSection(section);
     
-    // Zoom in effect
     setTimeout(() => {
-      // Navigate to section
+
       const element = document.getElementById(section);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
       }
-      
-      // Zoom out effect after navigation
+    
       setTimeout(() => {
         setIsNavigating(false);
       }, 1000);
@@ -93,14 +88,16 @@ export default function Home() {
   };
 
   return (
-    <div className={`min-h-screen text-sm sm:text-base ${
-      loadingPhase === 'black' ? 'bg-white overflow-hidden' : 'bg-white'
+    <div className={`min-h-screen text-sm sm:text-base bg-white text-black ${
+      loadingPhase === 'black' ? 'overflow-hidden' : ''
     }`}>
 
-      <div className={`w-screen h-screen bg-white transition-opacity duration-1000 relative overflow-hidden ${
+      {/* Loading Screen */}
+      <div className={`w-screen h-screen bg-white transition-all duration-1000 relative overflow-hidden ${
         loadingPhase === 'black' ? 'opacity-100' : 'opacity-0 pointer-events-none'
       }`}>
       
+        {/* Full Width Loading Line */}
         <div className="absolute top-1/2 left-0 transform -translate-y-1/2 w-full h-px bg-black/20">
           <div 
             className="h-full bg-black transition-all duration-[5000ms] ease-out"
@@ -110,13 +107,16 @@ export default function Home() {
           ></div>
         </div>
         
+        {/* NIKO Text - Responsive */}
         <div 
-          className="absolute top-4 left-2 sm:top-8 sm:left-4 md:top-12 md:left-6 lg:top-16 lg:left-8 xl:top-20 xl:left-8 text-black font-black transition-all duration-1500 ease-out"
+          className="absolute text-black font-black transition-all duration-1500 ease-out loading-text"
           style={{
-            fontSize: 'clamp(4rem, 12vw, 18rem)',
+            top: 'clamp(1rem, 4vh, 5rem)',
+            left: 'clamp(0.5rem, 2vw, 2rem)',
+            fontSize: 'clamp(3rem, 15vw, 18rem)',
             fontWeight: 800,
             fontFamily: 'Work Sans, sans-serif',
-            lineHeight: 0.9,
+            lineHeight: 0.85,
             transform: `translateY(${lineWidth === '100%' ? '0' : '-100vh'}) scale(${lineWidth === '100%' ? '1' : '0.3'})`,
             opacity: lineWidth === '100%' ? 1 : 0,
             transitionDelay: '1.5s'
@@ -125,13 +125,16 @@ export default function Home() {
           NIKO
         </div>
         
+        {/* DIMA Text - Responsive */}
         <div 
-          className="absolute bottom-4 right-2 sm:bottom-8 sm:right-4 md:bottom-12 md:right-6 lg:bottom-16 lg:right-8 xl:bottom-20 xl:right-8 text-black font-black transition-all duration-1500 ease-out"
+          className="absolute text-black font-black transition-all duration-1500 ease-out loading-text"
           style={{
-            fontSize: 'clamp(4rem, 12vw, 18rem)',
+            bottom: 'clamp(1rem, 4vh, 5rem)',
+            right: 'clamp(0.5rem, 2vw, 2rem)',
+            fontSize: 'clamp(3rem, 15vw, 18rem)',
             fontWeight: 800,
             fontFamily: 'Work Sans, sans-serif',
-            lineHeight: 0.9,
+            lineHeight: 0.85,
             transform: `translateY(${lineWidth === '100%' ? '0' : '100vh'}) scale(${lineWidth === '100%' ? '1' : '0.3'})`,
             opacity: lineWidth === '100%' ? 1 : 0,
             transitionDelay: '2s'
@@ -141,21 +144,22 @@ export default function Home() {
         </div>
       </div>
       
-      {/* Image content with fade in */}
+      {/* Image content with responsive sizing */}
       <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ${
         loadingPhase !== 'black' ? 'opacity-100' : 'opacity-0'
       }`}>
-        <div className="text-center">
+        <div className={`text-center w-full ${loadingPhase === 'image-small' ? 'px-2 sm:px-4' : ''}`}>
           <div 
-            className={`relative rounded-lg flex items-center justify-center mx-auto transition-all ease-in-out overflow-hidden ${
+            className={`relative flex items-center justify-center mx-auto transition-all overflow-hidden ${
               loadingPhase === 'image-small'
-                ? 'w-[98vw] h-[65vh] sm:w-[95vw] sm:h-[70vh] md:w-[92vw] md:h-[75vh] lg:w-[90vw] lg:h-[80vh] xl:w-[88vw] xl:h-[85vh] 2xl:w-[85vw] 2xl:h-[88vh]' 
-                : 'w-screen h-screen rounded-none'
+                ? 'w-[96vw] h-[55vh] sm:w-[94vw] sm:h-[60vh] md:w-[92vw] md:h-[70vh] lg:w-[90vw] lg:h-[75vh] xl:w-[88vw] xl:h-[80vh] 2xl:w-[85vw] 2xl:h-[83vh] rounded-lg duration-[1500ms] ease-out' 
+                : 'w-screen h-screen duration-[1500ms] ease-in-out'
             } ${
-              isNavigating ? 'duration-[800ms] scale-150' : 'duration-[3000ms] scale-100'
+              isNavigating ? 'duration-[800ms] scale-150 ease-in' : 'scale-100'
             }`}
             style={{
-              marginTop: loadingPhase === 'image-small' ? '3vh' : '0'
+              marginTop: loadingPhase === 'image-small' ? 'clamp(-4vh, -3vh, -2vh)' : '0',
+              minHeight: loadingPhase === 'image-small' ? 'clamp(300px, 60vh, 800px)' : 'auto'
             }}
           >
             <Image
@@ -163,8 +167,10 @@ export default function Home() {
               alt="Portfolio Image"
               fill
               className="object-cover"
+              priority
+              sizes="(max-width: 640px) 96vw, (max-width: 768px) 94vw, (max-width: 1024px) 92vw, (max-width: 1280px) 90vw, 85vw"
               style={{
-                transform: `translateY(${scrollY * 0.1}px)` // Image moving effect - increased vertical movement
+                transform: `translateY(${scrollY * 0.1}px)`
               }}
             />
           </div>

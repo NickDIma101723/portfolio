@@ -83,3 +83,24 @@ html {
     opacity: 1;
   }
 }
+
+/* Enhanced loading screen responsiveness */
+@media (max-width: 375px) {
+  .loading-text {
+    font-size: clamp(2.5rem, 12vw, 4rem) !important;
+  }
+}
+
+@media (max-height: 600px) {
+  .loading-text {
+    font-size: clamp(2rem, 10vw, 6rem) !important;
+  }
+}
+
+/* Ensure text doesn't overflow on very small screens */
+@media (max-width: 320px) {
+  .loading-text {
+    font-size: clamp(2rem, 10vw, 3rem) !important;
+    padding: 0.25rem;
+  }
+}
