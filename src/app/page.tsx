@@ -74,22 +74,29 @@ export default function Home() {
     setIsNavigating(true);
     setTargetSection(section);
     
+    // First zoom to fullscreen
     setTimeout(() => {
-
+      setLoadingPhase('image-fullscreen');
+    }, 400);
+    
+    // Then navigate to section
+    setTimeout(() => {
       const element = document.getElementById(section);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
       }
-    
+      
+      // Return to small image state
       setTimeout(() => {
+        setLoadingPhase('image-small');
         setIsNavigating(false);
-      }, 1000);
-    }, 800);
+      }, 800);
+    }, 1200);
   };
 
   return (
-    <div className={`min-h-screen text-sm sm:text-base bg-white text-black ${
-      loadingPhase === 'black' ? 'overflow-hidden' : ''
+    <div className={`min-h-screen text-sm sm:text-base text-black ${
+      loadingPhase === 'black' || isNavigating ? 'bg-black overflow-hidden' : 'bg-white'
     }`}>
 
       {/* Loading Screen */}
@@ -148,16 +155,18 @@ export default function Home() {
       <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ${
         loadingPhase !== 'black' ? 'opacity-100' : 'opacity-0'
       }`}>
-        <div className={`text-center w-full ${loadingPhase === 'image-small' ? 'px-2 sm:px-4' : ''}`}>
+        <div className={`text-center w-full ${loadingPhase === 'image-small' ? 'px-2 sm:px-4 pt-10 sm:pt-12 md:pt-14' : ''}`}>
           <div 
-            className={`relative flex items-center justify-center mx-auto transition-all overflow-hidden ${
+            className={`relative flex items-center justify-center transform-gpu ${
               loadingPhase === 'image-small'
-                ? 'w-[96vw] h-[55vh] sm:w-[94vw] sm:h-[60vh] md:w-[92vw] md:h-[70vh] lg:w-[90vw] lg:h-[75vh] xl:w-[88vw] xl:h-[80vh] 2xl:w-[85vw] 2xl:h-[83vh] rounded-lg duration-[1500ms] ease-out' 
-                : 'w-screen h-screen duration-[1500ms] ease-in-out'
+                ? 'w-[96vw] h-[57vh] sm:w-[94vw] sm:h-[62vh] md:w-[92vw] md:h-[72vh] lg:w-[90vw] lg:h-[77vh] xl:w-[88vw] xl:h-[82vh] 2xl:w-[85vw] 2xl:h-[85vh] rounded-lg duration-[1500ms] ease-out mx-auto' 
+                : 'w-screen h-screen duration-[1500ms] ease-in-out rounded-none'
             } ${
-              isNavigating ? 'duration-[800ms] scale-150 ease-in' : 'scale-100'
+              isNavigating ? 'duration-[800ms] scale-150' : 'duration-[3000ms] scale-100'
             }`}
             style={{
+              transformOrigin: 'center center',
+              overflow: 'hidden',
               marginTop: loadingPhase === 'image-small' ? 'clamp(-4vh, -3vh, -2vh)' : '0',
               minHeight: loadingPhase === 'image-small' ? 'clamp(300px, 60vh, 800px)' : 'auto'
             }}
@@ -178,7 +187,7 @@ export default function Home() {
       </div>
 
       {/* Navigation Bar */}
-      <Navbar loadingPhase={loadingPhase} scrollY={scrollY} />
+      <Navbar loadingPhase={loadingPhase} scrollY={scrollY} onNavigate={handleNavigation} />
 
       {/* Simple scrollable content */}
       <div className={`${loadingPhase === 'image-small' ? 'block' : 'hidden'}`}>

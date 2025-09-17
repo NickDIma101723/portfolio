@@ -5,9 +5,10 @@ import { useState, useRef, useEffect } from 'react';
 interface NavbarProps {
   loadingPhase: string;
   scrollY: number;
+  onNavigate: (section: string) => void;
 }
 
-export default function Navbar({ loadingPhase, scrollY }: NavbarProps) {
+export default function Navbar({ loadingPhase, scrollY, onNavigate }: NavbarProps) {
   const isScrolled = scrollY > 30;
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
@@ -96,15 +97,15 @@ export default function Navbar({ loadingPhase, scrollY }: NavbarProps) {
             transitionDelay: loadingPhase === 'image-small' ? '0.5s' : '0s'
           }}
         >
-          <a href="#about" className="relative group cursor-pointer transition-all duration-200 hover:opacity-60 hover:-translate-y-0.5 py-2 px-1">
+          <button onClick={() => onNavigate('about')} className="relative group cursor-pointer transition-all duration-200 hover:opacity-60 hover:-translate-y-0.5 py-2 px-1">
             <span className="transition-all duration-200 group-hover:tracking-wide">About</span>
-          </a>
-          <a href="#work" className="relative group cursor-pointer transition-all duration-200 hover:opacity-60 hover:-translate-y-0.5 py-2 px-1">
+          </button>
+          <button onClick={() => onNavigate('work')} className="relative group cursor-pointer transition-all duration-200 hover:opacity-60 hover:-translate-y-0.5 py-2 px-1">
             <span className="transition-all duration-200 group-hover:tracking-wide">Work</span>
-          </a>
-          <a href="#contact" className="relative group cursor-pointer transition-all duration-200 hover:opacity-60 hover:-translate-y-0.5 py-2 px-1">
+          </button>
+          <button onClick={() => onNavigate('contact')} className="relative group cursor-pointer transition-all duration-200 hover:opacity-60 hover:-translate-y-0.5 py-2 px-1">
             <span className="transition-all duration-200 group-hover:tracking-wide">Contact</span>
-          </a>
+          </button>
         </nav>
         
         {/* Mobile Menu Button - visible on small screens */}
@@ -247,7 +248,10 @@ export default function Navbar({ loadingPhase, scrollY }: NavbarProps) {
                   style={{
                     transitionDelay: isMenuOpen ? `${0.4 + index * 0.15}s` : '0s'
                   }}
-                  onClick={closeMenu}
+                  onClick={() => {
+                    onNavigate(item.title.toLowerCase());
+                    closeMenu();
+                  }}
                 >
                   <div className="flex items-baseline"
                     style={{
