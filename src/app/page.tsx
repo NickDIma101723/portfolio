@@ -71,32 +71,18 @@ export default function Home() {
   }, []);
 
   const handleNavigation = (section: string) => {
-    setIsNavigating(true);
     setTargetSection(section);
     
-    // First zoom to fullscreen
-    setTimeout(() => {
-      setLoadingPhase('image-fullscreen');
-    }, 400);
-    
-    // Then navigate to section
-    setTimeout(() => {
-      const element = document.getElementById(section);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-      
-      // Return to small image state
-      setTimeout(() => {
-        setLoadingPhase('image-small');
-        setIsNavigating(false);
-      }, 800);
-    }, 1200);
+    // Navigate to section directly without zoom
+    const element = document.getElementById(section);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
     <div className={`min-h-screen text-sm sm:text-base text-black ${
-      loadingPhase === 'black' || isNavigating ? 'bg-black overflow-hidden' : 'bg-white'
+      loadingPhase === 'black' ? 'bg-black overflow-hidden' : 'bg-white'
     }`}>
 
       {/* Loading Screen */}
@@ -161,13 +147,11 @@ export default function Home() {
               loadingPhase === 'image-small'
                 ? 'w-[96vw] h-[57vh] sm:w-[94vw] sm:h-[62vh] md:w-[92vw] md:h-[72vh] lg:w-[90vw] lg:h-[77vh] xl:w-[88vw] xl:h-[82vh] 2xl:w-[85vw] 2xl:h-[85vh] rounded-lg duration-[1500ms] ease-out mx-auto' 
                 : 'w-screen h-screen duration-[1500ms] ease-in-out rounded-none'
-            } ${
-              isNavigating ? 'duration-[800ms] scale-150' : 'duration-[3000ms] scale-100'
             }`}
             style={{
               transformOrigin: 'center center',
               overflow: 'hidden',
-              marginTop: loadingPhase === 'image-small' ? 'clamp(-4vh, -3vh, -2vh)' : '0',
+              marginTop: loadingPhase === 'image-small' ? 'clamp(-8vh, -6vh, -4vh)' : '0',
               minHeight: loadingPhase === 'image-small' ? 'clamp(300px, 60vh, 800px)' : 'auto'
             }}
           >
