@@ -36,71 +36,19 @@ html {
   scrollbar-width: none;  /* Firefox */
 }
 
-/* Loading screen animation */
-@keyframes slide {
-  0% {
-    transform: translateX(-100vw);
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
   }
-  100% {
-    transform: translateX(100vw);
+  to {
+    transform: rotate(360deg);
   }
 }
 
-@keyframes slideHorizontal {
-  0% {
-    transform: translateX(-200px);
-  }
-  100% {
-    transform: translateX(calc(100vw + 200px));
-  }
-}
-
-@keyframes slideOnce {
-  0% {
-    transform: translateX(-200px);
-  }
-  100% {
-    transform: translateX(calc(100vw + 200px));
-  }
-}
-
-@keyframes gridMove {
-  0% {
-    transform: translate(0, 0);
-  }
-  100% {
-    transform: translate(50px, 50px);
-  }
-}
-
-@keyframes scanline {
-  0%, 100% {
-    top: 20%;
-    opacity: 0;
-  }
-  50% {
-    top: 80%;
-    opacity: 1;
-  }
-}
-
-/* Enhanced loading screen responsiveness */
-@media (max-width: 375px) {
-  .loading-text {
-    font-size: clamp(2.5rem, 12vw, 4rem) !important;
-  }
-}
-
-@media (max-height: 600px) {
-  .loading-text {
-    font-size: clamp(2rem, 10vw, 6rem) !important;
-  }
-}
-
-/* Ensure text doesn't overflow on very small screens */
-@media (max-width: 320px) {
-  .loading-text {
-    font-size: clamp(2rem, 10vw, 3rem) !important;
-    padding: 0.25rem;
-  }
+.animate-spin-slow {
+  animation: spin-slow 10s linear infinite;
 }
