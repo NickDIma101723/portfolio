@@ -1,11 +1,11 @@
 'use client';
 
-import { LoadingScreen } from '@/components/LoadingAnimations';
+import LoadingAnimations from '@/components/LoadingAnimations';
 
 export default function DemoLoadingPage() {
   return (
     <div className="min-h-screen">
-      <LoadingScreen />
+      <LoadingAnimations onComplete={() => {}} />
     </div>
   );
 }
