@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
 
 const SKILLS = [
   "React", "Next.js", "TypeScript", "Node.js", "WebGL", 
@@ -74,14 +73,14 @@ export default function SkillsUniverse() {
         let z = tag.z;
 
         // Rotate X
-        let y1 = y * cx - z * sx;
-        let z1 = z * cx + y * sx;
+        const y1 = y * cx - z * sx;
+        const z1 = z * cx + y * sx;
         y = y1;
         z = z1;
 
         // Rotate Y
-        let x1 = x * cy - z * sy;
-        let z2 = z * cy + x * sy;
+        const x1 = x * cy - z * sy;
+        const z2 = z * cy + x * sy;
         x = x1;
         z = z2;
 
@@ -118,7 +117,7 @@ export default function SkillsUniverse() {
         
         <div className="absolute top-10 left-10 z-10">
             <h2 className="text-xs font-mono text-red-500 uppercase tracking-widest">
-                // Neural Network
+                {'//'} Neural Network
             </h2>
         </div>
 

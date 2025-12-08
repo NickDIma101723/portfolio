@@ -63,7 +63,7 @@ export default function KineticSkills() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="mb-12 border-b border-neutral-800 pb-4">
             <h2 className="text-xs font-mono text-neutral-500 uppercase tracking-widest">
-                // Technical Arsenal
+                {'//'} Technical Arsenal
             </h2>
         </div>
 

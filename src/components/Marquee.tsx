@@ -7,24 +7,28 @@ export default function Marquee() {
   const firstText = useRef(null);
   const secondText = useRef(null);
   const slider = useRef(null);
-  let xPercent = 0;
-  let direction = -1;
 
   useEffect(() => {
-    requestAnimationFrame(animate);
-  }, []);
+    let xPercent = 0;
+    const direction = -1;
+    let animationId: number;
 
-  const animate = () => {
-    if (xPercent < -100) {
-      xPercent = 0;
-    } else if (xPercent > 0) {
-      xPercent = -100;
-    }
-    gsap.set(firstText.current, { xPercent: xPercent });
-    gsap.set(secondText.current, { xPercent: xPercent });
-    xPercent += 0.05 * direction;
-    requestAnimationFrame(animate);
-  };
+    const animate = () => {
+      if (xPercent < -100) {
+        xPercent = 0;
+      } else if (xPercent > 0) {
+        xPercent = -100;
+      }
+      gsap.set(firstText.current, { xPercent: xPercent });
+      gsap.set(secondText.current, { xPercent: xPercent });
+      xPercent += 0.05 * direction;
+      animationId = requestAnimationFrame(animate);
+    };
+
+    animationId = requestAnimationFrame(animate);
+
+    return () => cancelAnimationFrame(animationId);
+  }, []);
 
   return (
     <div className="relative flex h-screen w-[100vw] flex-shrink-0 overflow-hidden bg-neutral-900 text-white items-center border-x border-neutral-800 snap-start">

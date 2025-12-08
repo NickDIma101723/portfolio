@@ -17,7 +17,7 @@ export default function Footer() {
         <div className="flex-grow flex flex-col justify-center items-center z-10 relative">
             <div className="text-center mb-12 relative">
                 <h2 className="text-[15vw] leading-[0.8] font-bold uppercase tracking-tighter mix-blend-difference relative z-10">
-                    Let's Talk
+                    Let&apos;s Talk
                 </h2>
             </div>
             

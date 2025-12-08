@@ -10,7 +10,6 @@ import CustomCursor from "@/components/CustomCursor";
 import SmoothScroll from "@/components/SmoothScroll";
 import Marquee from "@/components/Marquee";
 import { useState } from "react";
-import { AnimatePresence } from "framer-motion";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);

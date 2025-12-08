@@ -145,8 +145,8 @@ export default function About() {
   }, []);
 
   // Glitch Effect Function
-  const triggerGlitch = (e: any) => {
-      const target = e.target;
+  const triggerGlitch = (e: React.MouseEvent<HTMLElement>) => {
+      const target = e.target as HTMLElement;
       const originalText = target.dataset.text || target.innerText;
       target.dataset.text = originalText; // Store original
       
@@ -185,7 +185,7 @@ export default function About() {
       <div className="min-h-screen flex flex-col justify-center px-4 md:px-20 py-20 relative z-10" style={{ perspective: "1000px" }}>
         <div className="max-w-[95vw]">
             <h2 className="text-xs md:text-sm font-mono text-red-500 mb-8 tracking-[0.5em] uppercase opacity-80">
-                // The Manifesto
+                {'//'} The Manifesto
             </h2>
             
             {/* Line 1 */}
@@ -338,7 +338,7 @@ export default function About() {
                     The <br/> <span className="text-red-600">Alchemist</span>
                 </h3>
                 <p className="text-xl text-neutral-400 leading-relaxed max-w-md">
-                    I am not a "developer". I am a problem solver who uses code as a weapon. 
+                    I am not a &quot;developer&quot;. I am a problem solver who uses code as a weapon. 
                     I bridge the gap between the logical and the beautiful.
                 </p>
             </div>
