@@ -6,7 +6,7 @@ const SKILLS = [
   "React", "Next.js", "TypeScript", "Node.js", "WebGL", 
   "Three.js", "GSAP", "Tailwind", "AWS", "Docker", 
   "Figma", "Python", "Rust", "GraphQL", "PostgreSQL",
-  "Redis", "CI/CD", "Git", "Linux", "Vercel"
+  "Redis", "CI/CD", "Git", "Linux", "Netlify"
 ];
 
 export default function SkillsUniverse() {

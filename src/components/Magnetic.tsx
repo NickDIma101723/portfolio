@@ -42,5 +42,5 @@ export default function Magnetic({ children }: MagneticProps) {
   }, []);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return cloneElement(children as ReactElement<any>, { ref: magnetic });
+  return cloneElement(children, { ref: magnetic } as any);
 }
