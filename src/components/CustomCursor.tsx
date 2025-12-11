@@ -14,6 +14,10 @@ export default function CustomCursor() {
     
     if (!cursor || !follower) return;
 
+    // Only run on devices with fine pointer (mouse)
+    const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
+    if (isTouchDevice) return;
+
     // Center the elements initially
     gsap.set(cursor, { xPercent: -50, yPercent: -50 });
     gsap.set(follower, { xPercent: -50, yPercent: -50 });
@@ -79,11 +83,11 @@ export default function CustomCursor() {
     <>
       <div 
         ref={cursorRef} 
-        className="fixed top-0 left-0 w-3 h-3 bg-accent-primary rounded-full pointer-events-none z-[9999]"
+        className="hidden [@media(pointer:fine)]:block fixed top-0 left-0 w-3 h-3 bg-accent-primary rounded-full pointer-events-none z-[9999]"
       />
       <div 
         ref={followerRef} 
-        className="fixed top-0 left-0 w-12 h-12 border border-accent-secondary rounded-full pointer-events-none z-[9998] flex items-center justify-center transition-transform duration-300 ease-out"
+        className="hidden [@media(pointer:fine)]:flex fixed top-0 left-0 w-12 h-12 border border-accent-secondary rounded-full pointer-events-none z-[9998] items-center justify-center transition-transform duration-300 ease-out"
       >
          <span className={`text-[3px] font-bold uppercase tracking-widest text-accent-secondary transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>View</span>
       </div>

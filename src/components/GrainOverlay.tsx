@@ -2,7 +2,7 @@
 
 export default function GrainOverlay() {
   return (
-    <div className="fixed inset-0 pointer-events-none z-[9998] opacity-[0.03] mix-blend-overlay">
+    <div className="hidden md:block fixed inset-0 pointer-events-none z-[9998] opacity-[0.03] mix-blend-overlay">
         <div 
             className="w-full h-full"
             style={{

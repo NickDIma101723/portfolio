@@ -53,12 +53,13 @@ export default function Menu({ isOpen, onClose }: MenuProps) {
         )
         // 4. Main Links Skew Reveal
         .fromTo(".menu-link-text",
-          { y: "100%" },
+          { y: "150%", skewY: 10 },
           {
             y: "0%",
-            duration: 1,
-            stagger: 0.1,
-            ease: "power4.out",
+            skewY: 0,
+            duration: 1.2,
+            stagger: 0.08,
+            ease: "expo.out",
             clearProps: "transform" // Allow CSS hover to take over
           },
           "-=0.8"
@@ -100,15 +101,15 @@ export default function Menu({ isOpen, onClose }: MenuProps) {
                     <Link 
                         href={item.href} 
                         onClick={onClose}
-                        className="absolute inset-0 flex items-center justify-between px-6 md:px-12 hover:bg-black/20 transition-colors duration-500"
+                        className="absolute inset-0 flex items-center justify-between px-6 md:px-12 md:hover:bg-black/20 transition-colors duration-500"
                     >
                         <div className="relative overflow-hidden h-[1.2em] text-5xl md:text-7xl">
                             {/* Original Text */}
-                            <span className="block font-black uppercase tracking-tighter leading-none text-white transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full menu-link-text">
+                            <span className="block font-black uppercase tracking-tighter leading-none text-white transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-[125%] menu-link-text">
                                 {item.label}
                             </span>
                             {/* Hover Text (Gold) */}
-                            <span className="absolute top-0 left-0 block font-black uppercase tracking-tighter leading-none text-[#fbbf24] transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] translate-y-full group-hover:translate-y-0">
+                            <span className="absolute top-0 left-0 block font-black uppercase tracking-tighter leading-none text-[#fbbf24] transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] translate-y-[125%] group-hover:translate-y-0">
                                 {item.label}
                             </span>
                         </div>

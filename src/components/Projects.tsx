@@ -73,58 +73,74 @@ export default function Projects() {
     const ctx = gsap.context(() => {
       const cards = gsap.utils.toArray<HTMLElement>(".project-card");
       
-      cards.forEach((card, i) => {
-        const nextCard = cards[i + 1];
-        const cardInner = card.querySelector(".card-inner");
-        const innerContent = card.querySelector(".inner-content");
-        const bgImage = card.querySelector(".bg-image");
-        const overlay = card.querySelector(".stack-overlay");
+      ScrollTrigger.matchMedia({
+        // Desktop only animations (min-width: 1024px AND mouse device)
+        "(min-width: 1024px) and (hover: hover)": function() {
+            cards.forEach((card, i) => {
+                const nextCard = cards[i + 1];
+                const cardInner = card.querySelector(".card-inner");
+                const innerContent = card.querySelector(".inner-content");
+                const bgImage = card.querySelector(".bg-image");
+                const overlay = card.querySelector(".stack-overlay");
 
-        // 1. Entry Animation (Text Reveal - Masked)
-        gsap.from(card.querySelectorAll(".reveal-text"), {
-            y: "100%",
-            duration: 1.5,
-            stagger: 0.1,
-            ease: "power4.out",
-            scrollTrigger: {
-                trigger: card,
-                start: "top 80%",
-                toggleActions: "play none none reverse"
-            }
-        });
+                if (!nextCard || !cardInner) return;
 
-        if (!nextCard || !cardInner) return;
+                // 2. Stacking Animation (Exit)
+                const tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: nextCard,
+                        start: "top bottom",
+                        end: "top top",
+                        scrub: true,
+                    }
+                });
 
-        // 2. Stacking Animation (Exit)
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: nextCard,
-                start: "top bottom",
-                end: "top top",
-                scrub: true,
-            }
-        });
-
-        tl.to(cardInner, {
-            scale: 0.95,
-            transformOrigin: "center top",
-            ease: "linear",
-            force3D: true,
-        }, 0)
-        .to(bgImage, {
-            scale: 1.2, // Parallax zoom on exit
-            ease: "linear",
-        }, 0)
-        .to(innerContent, {
-            opacity: 0,
-            y: -100, // Slide content up
-            ease: "linear",
-        }, 0)
-        .to(overlay, {
-            opacity: 0.8,
-            ease: "linear",
-        }, 0);
+                tl.to(cardInner, {
+                    scale: 0.98, // Reduced scaling for better performance
+                    transformOrigin: "center top",
+                    ease: "linear",
+                    force3D: true,
+                }, 0)
+                .to(bgImage, {
+                    scale: 1.05, // Reduced parallax scale
+                    ease: "linear",
+                    force3D: true,
+                }, 0)
+                .to(innerContent, {
+                    opacity: 0,
+                    y: -50, // Reduced movement
+                    ease: "linear",
+                    force3D: true,
+                }, 0)
+                .to(overlay, {
+                    opacity: 0.8,
+                    ease: "linear",
+                }, 0);
+            });
+        },
+        
+        // All devices: Entry animations
+        "all": function() {
+             cards.forEach((card) => {
+                // 1. Entry Animation (Text Reveal - Masked)
+                gsap.fromTo(card.querySelectorAll(".reveal-text"), 
+                  { y: "100%" },
+                  {
+                    y: "0%",
+                    duration: 1.5,
+                    stagger: 0.1,
+                    ease: "power4.out",
+                    force3D: true, // Force hardware acceleration
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top bottom-=10%", 
+                        toggleActions: "play none none reverse"
+                    }
+                });
+             });
+        }
       });
+
     }, containerRef);
 
     return () => ctx.revert();
@@ -148,24 +164,27 @@ export default function Projects() {
           {projects.map((project, i) => (
             <div 
               key={i} 
-              className="project-card sticky top-0 w-full min-h-screen flex items-center justify-center overflow-hidden"
+              className="project-card sticky top-0 w-full h-[100dvh] flex items-center justify-center overflow-hidden"
               style={{ 
                 zIndex: i + 1, 
                 marginBottom: i === projects.length - 1 ? 0 : "50vh",
-                transform: "translate3d(0,0,0)",
-                backfaceVisibility: "hidden"
               }}
             >
-               <div className="card-inner group relative w-full h-full bg-[#050505] overflow-hidden border-t border-l border-r border-white/20 shadow-2xl will-change-transform" style={{ backfaceVisibility: "hidden" }}>
+               <div className="card-inner group relative w-full h-full bg-[#050505] overflow-hidden border-t border-l border-r border-white/20 shadow-2xl will-change-transform">
                   
                   {/* Background Image */}
-                  <div className="absolute inset-0 bg-image">
+                  <div className="absolute inset-0 bg-image bg-[#1a1a1a] will-change-transform">
                       <Image 
                         src={project.src} 
                         alt={project.title} 
                         fill 
+                        sizes="(max-width: 768px) 100vw, 100vw"
+                        quality={60} // Lower quality for better performance
+                        priority={i < 2} // Load first 2 images immediately
                         className={cn(
-                            "object-cover opacity-50 grayscale transition-all duration-700 ease-out group-hover:opacity-100 group-hover:grayscale-0 group-hover:scale-105",
+                            "object-cover opacity-50 grayscale transition-all duration-700 ease-out lg:group-hover:opacity-100 lg:group-hover:grayscale-0 lg:group-hover:scale-105",
+                            // On mobile, show image clearly without hover
+                            "max-lg:opacity-80 max-lg:grayscale-0", 
                             project.imgClass
                         )}
                       />
@@ -174,18 +193,18 @@ export default function Projects() {
                   </div>
 
                   {/* Content */}
-                  <div className="inner-content absolute inset-0 p-6 md:p-12 flex flex-col justify-between z-20">
+                  <div className="inner-content absolute inset-0 p-6 md:p-12 flex flex-col justify-between z-20 will-change-transform">
                       
                       {/* Corner Accents */}
-                      <div className="absolute top-8 left-8 w-24 h-24 border-l-4 border-t-4 border-white/30 group-hover:border-[#fbbf24] transition-colors duration-500 reveal-text" />
-                      <div className="absolute top-8 right-8 w-24 h-24 border-r-4 border-t-4 border-white/30 group-hover:border-[#fbbf24] transition-colors duration-500 reveal-text" />
-                      <div className="absolute bottom-8 left-8 w-24 h-24 border-l-4 border-b-4 border-white/30 group-hover:border-[#fbbf24] transition-colors duration-500 reveal-text" />
-                      <div className="absolute bottom-8 right-8 w-24 h-24 border-r-4 border-b-4 border-white/30 group-hover:border-[#fbbf24] transition-colors duration-500 reveal-text" />
+                      <div className="absolute top-8 left-8 w-24 h-24 border-l-4 border-t-4 border-white/30 group-hover:border-[#fbbf24] transition-colors duration-500 reveal-text will-change-transform" />
+                      <div className="absolute top-8 right-8 w-24 h-24 border-r-4 border-t-4 border-white/30 group-hover:border-[#fbbf24] transition-colors duration-500 reveal-text will-change-transform" />
+                      <div className="absolute bottom-8 left-8 w-24 h-24 border-l-4 border-b-4 border-white/30 group-hover:border-[#fbbf24] transition-colors duration-500 reveal-text will-change-transform" />
+                      <div className="absolute bottom-8 right-8 w-24 h-24 border-r-4 border-b-4 border-white/30 group-hover:border-[#fbbf24] transition-colors duration-500 reveal-text will-change-transform" />
 
                       {/* Top Bar */}
-                      <div className="flex justify-between items-start reveal-text">
+                      <div className="flex justify-between items-start reveal-text will-change-transform">
                           <div className="flex flex-col gap-2">
-                              <div className="flex items-center gap-3 bg-white/5 px-4 py-2 backdrop-blur-md border border-white/10">
+                              <div className="flex items-center gap-3 bg-black/60 md:bg-white/5 px-4 py-2 md:backdrop-blur-md border border-white/10">
                                 <span className="w-2 h-2 bg-[#fbbf24] animate-pulse" />
                                 <span className="text-[#fbbf24] font-mono text-sm uppercase tracking-widest">
                                     CASE_0{i + 1}
@@ -205,18 +224,20 @@ export default function Projects() {
                       {/* Center Title */}
                       <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                           <div className="overflow-hidden">
-                            <h3 className="reveal-text block text-[12vw] md:text-[14vw] font-black text-transparent uppercase tracking-tighter leading-none transition-all duration-700 ease-out group-hover:scale-110" style={{ WebkitTextStroke: "2px rgba(255,255,255,0.2)" }}>
+                            <h3 className="reveal-text will-change-transform block text-[12vw] md:text-[14vw] font-black text-transparent uppercase tracking-tighter leading-none transition-all duration-700 ease-out group-hover:scale-110" style={{ WebkitTextStroke: "2px rgba(255,255,255,0.2)" }}>
                                 {project.title}
                             </h3>
                           </div>
-                          <h3 className="absolute text-[12vw] md:text-[14vw] font-black text-white uppercase tracking-tighter leading-none transition-all duration-700 ease-out opacity-0 group-hover:opacity-100 group-hover:scale-110">
-                            {project.title}
-                          </h3>
+                          <div className="absolute overflow-hidden">
+                            <h3 className="reveal-text will-change-transform text-[12vw] md:text-[14vw] font-black text-white uppercase tracking-tighter leading-none transition-all duration-700 ease-out opacity-100 lg:opacity-0 lg:group-hover:opacity-100 group-hover:scale-110">
+                                {project.title}
+                            </h3>
+                          </div>
                       </div>
 
                       {/* Bottom Content */}
-                      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 reveal-text">
-                          <div className="max-w-xl bg-black/40 backdrop-blur-md p-6 border border-white/10">
+                      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 reveal-text will-change-transform">
+                          <div className="max-w-xl bg-black/80 md:bg-black/40 md:backdrop-blur-md p-6 border border-white/10">
                             <p className="text-xl md:text-3xl text-white font-light leading-tight mb-4">
                                 {project.description}
                             </p>
@@ -268,7 +289,7 @@ export default function Projects() {
                   </div>
 
                   {/* Stacking Overlay (Performance optimized dimming) */}
-                  <div className="stack-overlay absolute inset-0 bg-black opacity-0 z-40 pointer-events-none transition-opacity duration-300" />
+                  <div className="stack-overlay absolute inset-0 bg-black opacity-0 z-40 pointer-events-none transition-opacity duration-300 will-change-[opacity]" />
 
                </div>
             </div>
