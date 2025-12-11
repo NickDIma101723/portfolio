@@ -173,7 +173,7 @@ export default function Projects() {
                <div className="card-inner group relative w-full h-full bg-[#050505] overflow-hidden border-t border-l border-r border-white/20 shadow-2xl will-change-transform">
                   
                   {/* Background Image */}
-                  <div className="absolute inset-0 bg-image bg-[#1a1a1a] will-change-transform">
+                  <div className="absolute inset-0 bg-image bg-[#1a1a1a]">
                       <Image 
                         src={project.src} 
                         alt={project.title} 
@@ -193,16 +193,16 @@ export default function Projects() {
                   </div>
 
                   {/* Content */}
-                  <div className="inner-content absolute inset-0 p-6 md:p-12 flex flex-col justify-between z-20 will-change-transform">
+                  <div className="inner-content absolute inset-0 p-6 md:p-12 flex flex-col justify-between z-20">
                       
                       {/* Corner Accents */}
-                      <div className="absolute top-8 left-8 w-24 h-24 border-l-4 border-t-4 border-white/30 group-hover:border-[#fbbf24] transition-colors duration-500 reveal-text will-change-transform" />
-                      <div className="absolute top-8 right-8 w-24 h-24 border-r-4 border-t-4 border-white/30 group-hover:border-[#fbbf24] transition-colors duration-500 reveal-text will-change-transform" />
-                      <div className="absolute bottom-8 left-8 w-24 h-24 border-l-4 border-b-4 border-white/30 group-hover:border-[#fbbf24] transition-colors duration-500 reveal-text will-change-transform" />
-                      <div className="absolute bottom-8 right-8 w-24 h-24 border-r-4 border-b-4 border-white/30 group-hover:border-[#fbbf24] transition-colors duration-500 reveal-text will-change-transform" />
+                      <div className="absolute top-8 left-8 w-24 h-24 border-l-4 border-t-4 border-white/30 group-hover:border-[#fbbf24] transition-colors duration-500 reveal-text" />
+                      <div className="absolute top-8 right-8 w-24 h-24 border-r-4 border-t-4 border-white/30 group-hover:border-[#fbbf24] transition-colors duration-500 reveal-text" />
+                      <div className="absolute bottom-8 left-8 w-24 h-24 border-l-4 border-b-4 border-white/30 group-hover:border-[#fbbf24] transition-colors duration-500 reveal-text" />
+                      <div className="absolute bottom-8 right-8 w-24 h-24 border-r-4 border-b-4 border-white/30 group-hover:border-[#fbbf24] transition-colors duration-500 reveal-text" />
 
                       {/* Top Bar */}
-                      <div className="flex justify-between items-start reveal-text will-change-transform">
+                      <div className="flex justify-between items-start reveal-text">
                           <div className="flex flex-col gap-2">
                               <div className="flex items-center gap-3 bg-black/60 md:bg-white/5 px-4 py-2 md:backdrop-blur-md border border-white/10">
                                 <span className="w-2 h-2 bg-[#fbbf24] animate-pulse" />
@@ -224,19 +224,19 @@ export default function Projects() {
                       {/* Center Title */}
                       <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                           <div className="overflow-hidden">
-                            <h3 className="reveal-text will-change-transform block text-[12vw] md:text-[14vw] font-black text-transparent uppercase tracking-tighter leading-none transition-all duration-700 ease-out group-hover:scale-110" style={{ WebkitTextStroke: "2px rgba(255,255,255,0.2)" }}>
+                            <h3 className="reveal-text block text-[12vw] md:text-[14vw] font-black text-transparent uppercase tracking-tighter leading-none transition-all duration-700 ease-out group-hover:scale-110" style={{ WebkitTextStroke: "2px rgba(255,255,255,0.2)" }}>
                                 {project.title}
                             </h3>
                           </div>
                           <div className="absolute overflow-hidden">
-                            <h3 className="reveal-text will-change-transform text-[12vw] md:text-[14vw] font-black text-white uppercase tracking-tighter leading-none transition-all duration-700 ease-out opacity-100 lg:opacity-0 lg:group-hover:opacity-100 group-hover:scale-110">
+                            <h3 className="reveal-text text-[12vw] md:text-[14vw] font-black text-white uppercase tracking-tighter leading-none transition-all duration-700 ease-out opacity-100 lg:opacity-0 lg:group-hover:opacity-100 group-hover:scale-110">
                                 {project.title}
                             </h3>
                           </div>
                       </div>
 
                       {/* Bottom Content */}
-                      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 reveal-text will-change-transform">
+                      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 reveal-text">
                           <div className="max-w-xl bg-black/80 md:bg-black/40 md:backdrop-blur-md p-6 border border-white/10">
                             <p className="text-xl md:text-3xl text-white font-light leading-tight mb-4">
                                 {project.description}
@@ -289,7 +289,7 @@ export default function Projects() {
                   </div>
 
                   {/* Stacking Overlay (Performance optimized dimming) */}
-                  <div className="stack-overlay absolute inset-0 bg-black opacity-0 z-40 pointer-events-none transition-opacity duration-300 will-change-[opacity]" />
+                  <div className="stack-overlay absolute inset-0 bg-black opacity-0 z-40 pointer-events-none transition-opacity duration-300" />
 
                </div>
             </div>

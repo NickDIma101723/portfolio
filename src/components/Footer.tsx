@@ -55,7 +55,7 @@ export default function Footer() {
     <div className="relative h-full w-full">
         
         {/* 1. Main Footer Content (Scrolls Up) */}
-        <div ref={containerRef} className="relative z-10 bg-[#8c1921] w-full min-h-screen flex flex-col justify-between mb-[85vh] shadow-2xl">
+        <div ref={containerRef} className="relative z-10 bg-[#8c1921] w-full min-h-screen flex flex-col justify-between mb-[50vh] md:mb-[85vh] shadow-2xl">
             
             {/* Background Texture */}
             <div className="absolute inset-0 opacity-[0.05] pointer-events-none" 
@@ -101,7 +101,7 @@ export default function Footer() {
         </div>
 
         {/* 2. Fixed Reveal Layer (NIKO Text) */}
-        <div ref={fixedFooterRef} className="fixed bottom-0 left-0 w-full h-[85vh] -z-10 bg-[#8c1921] flex items-center justify-center overflow-hidden pb-0">
+        <div ref={fixedFooterRef} className="fixed bottom-0 left-0 w-full h-[50vh] md:h-[85vh] -z-10 bg-[#8c1921] flex items-center justify-center overflow-hidden pb-0">
              {/* Darker Overlay for depth */}
              <div className="absolute inset-0 bg-black/20 pointer-events-none" />
              

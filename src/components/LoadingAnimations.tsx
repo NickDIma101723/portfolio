@@ -43,7 +43,7 @@ export default function LoadingAnimations({ onComplete }: { onComplete: () => vo
       // 2. Counter counts up (Slower)
       .to(progressObj, {
         value: 100,
-        duration: 4.5, // Increased from 3.5
+        duration: 2.0,
         ease: "expo.inOut",
         onUpdate: () => {
             if (counterRef.current) {
@@ -51,11 +51,16 @@ export default function LoadingAnimations({ onComplete }: { onComplete: () => vo
             }
         }
       })
+      .to(".loading-bar", {
+        scaleX: 1,
+        duration: 2.0,
+        ease: "expo.inOut"
+      }, "<")
 
       // 3. Counter fades out
-      .to(counterRef.current, {
+      .to([counterRef.current, ".loading-bar", ".loading-text"], {
         opacity: 0,
-        y: -50,
+        y: -20,
         duration: 0.4,
         ease: "power2.in"
       })
@@ -63,16 +68,16 @@ export default function LoadingAnimations({ onComplete }: { onComplete: () => vo
       // 4. Main Curtain Reveal (Red)
       .to(mainPanelRef.current, {
         yPercent: -100,
-        duration: 1.2,
+        duration: 0.8, // Faster reveal
         ease: "expo.inOut"
-      }, "-=0.2")
+      }, "-=0.1")
 
       // 5. Secondary Curtain Reveal (Dark) - Parallax effect
       .to(subPanelRef.current, {
         yPercent: -100,
-        duration: 1.2,
+        duration: 0.8, // Faster reveal
         ease: "expo.inOut"
-      }, "-=1.0");
+      }, "-=0.6");
 
     }, containerRef);
 
@@ -92,10 +97,20 @@ export default function LoadingAnimations({ onComplete }: { onComplete: () => vo
         <div ref={subPanelRef} className="absolute top-0 left-0 w-full h-full bg-[#2a0507] z-10" />
 
         {/* Main Panel (Brand Red) - Foreground Layer */}
-        <div ref={mainPanelRef} className="absolute top-0 left-0 w-full h-full bg-[#8c1921] z-20 flex items-center justify-center overflow-hidden">
+        <div ref={mainPanelRef} className="absolute top-0 left-0 w-full h-full bg-[#8c1921] z-20 flex flex-col items-center justify-center overflow-hidden">
              {/* Counter */}
-             <div className="relative overflow-hidden">
+             <div className="relative overflow-hidden flex flex-col items-center gap-4">
                 <span ref={counterRef} className="block text-[12vw] font-black leading-none tracking-tighter text-[#fbbf24] opacity-0 translate-y-5">0</span>
+                
+                {/* Progress Bar */}
+                <div className="w-64 h-1 bg-white/20 rounded-full overflow-hidden loading-bar opacity-0">
+                    <div className="w-full h-full bg-[#fbbf24] origin-left scale-x-0 loading-bar" />
+                </div>
+                
+                {/* Loading Text */}
+                <span className="font-mono text-xs uppercase tracking-widest text-white/60 loading-text opacity-0">
+                    Initializing System...
+                </span>
              </div>
         </div>
 
