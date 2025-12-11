@@ -69,7 +69,7 @@ export default function GravitySkills() {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative w-full py-20 bg-neutral-950 overflow-hidden cursor-none">
+    <div ref={containerRef} className="relative w-full py-20 bg-[#8c1921] overflow-hidden cursor-none">
       {/* Spotlight Overlay */}
       <div 
         ref={overlayRef}
@@ -82,7 +82,7 @@ export default function GravitySkills() {
           {SKILLS.map((skill, i) => (
             <div 
               key={i} 
-              className="skill-item text-4xl md:text-6xl font-black uppercase tracking-tighter text-neutral-800 transition-colors duration-300 select-none"
+              className="skill-item text-4xl md:text-6xl font-black uppercase tracking-tighter text-black/40 transition-colors duration-300 select-none"
             >
               {skill}
             </div>

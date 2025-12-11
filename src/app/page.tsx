@@ -16,7 +16,7 @@ export default function Home() {
 
   return (
     <SmoothScroll>
-      <main className="bg-neutral-950 min-h-screen w-full flex flex-col cursor-none">
+      <main className="min-h-screen w-full flex flex-col cursor-none">
         <CustomCursor />
         {isLoading && <LoadingAnimations onComplete={() => setIsLoading(false)} />}
 

@@ -66,12 +66,12 @@ export default function Hobbies() {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative w-full min-h-screen bg-neutral-950 py-20 overflow-hidden">
+    <div ref={containerRef} className="relative w-full min-h-screen bg-[#8c1921] py-20 overflow-hidden">
         <div className="absolute top-10 left-10 z-10 mix-blend-difference">
             <h2 className="text-6xl font-black text-white uppercase tracking-tighter">
                 The Archive
             </h2>
-            <p className="text-sm text-neutral-400 uppercase tracking-widest mt-2">
+            <p className="text-sm text-white/60 uppercase tracking-widest mt-2">
                 Selected Interests & Obsessions
             </p>
         </div>
@@ -80,7 +80,7 @@ export default function Hobbies() {
             {/* Column 1 */}
             <div ref={col1Ref} className="flex flex-col gap-8 mt-[-20vh]">
                 {HOBBIES.slice(0, 3).map((hobby, i) => (
-                    <div key={i} className="relative w-full aspect-[3/4] bg-neutral-900 grayscale hover:grayscale-0 transition-all duration-500">
+                    <div key={i} className="relative w-full aspect-[3/4] bg-black/20 grayscale hover:grayscale-0 transition-all duration-500">
                         <Image 
                             src={hobby.img} 
                             alt={hobby.name} 
@@ -96,7 +96,7 @@ export default function Hobbies() {
             {/* Column 2 */}
             <div ref={col2Ref} className="flex flex-col gap-8 mt-[10vh]">
                 {HOBBIES.slice(3, 6).map((hobby, i) => (
-                    <div key={i} className="relative w-full aspect-[3/4] bg-neutral-900 grayscale hover:grayscale-0 transition-all duration-500">
+                    <div key={i} className="relative w-full aspect-[3/4] bg-black/20 grayscale hover:grayscale-0 transition-all duration-500">
                         <Image 
                             src={hobby.img} 
                             alt={hobby.name} 
@@ -112,7 +112,7 @@ export default function Hobbies() {
             {/* Column 3 */}
             <div ref={col3Ref} className="flex flex-col gap-8 mt-[-10vh]">
                 {HOBBIES.slice(6, 9).map((hobby, i) => (
-                    <div key={i} className="relative w-full aspect-[3/4] bg-neutral-900 grayscale hover:grayscale-0 transition-all duration-500">
+                    <div key={i} className="relative w-full aspect-[3/4] bg-black/20 grayscale hover:grayscale-0 transition-all duration-500">
                         <Image 
                             src={hobby.img} 
                             alt={hobby.name} 

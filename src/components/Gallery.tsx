@@ -66,7 +66,7 @@ export default function Gallery() {
   }, [positions]);
 
   return (
-    <section ref={containerRef} className="h-screen w-full bg-neutral-950 overflow-hidden relative flex items-center justify-center">
+    <section ref={containerRef} className="h-screen w-full overflow-hidden relative flex items-center justify-center">
       
       {/* Center Image (Zoom Target) */}
       <div ref={centerRef} className="absolute w-[60vw] md:w-[30vw] aspect-video z-20">

@@ -79,13 +79,13 @@ export default function CustomCursor() {
     <>
       <div 
         ref={cursorRef} 
-        className="fixed top-0 left-0 w-2 h-2 bg-white rounded-full pointer-events-none z-[9999] mix-blend-difference"
+        className="fixed top-0 left-0 w-3 h-3 bg-accent-primary rounded-full pointer-events-none z-[9999]"
       />
       <div 
         ref={followerRef} 
-        className="fixed top-0 left-0 w-12 h-12 border border-white rounded-full pointer-events-none z-[9998] mix-blend-difference flex items-center justify-center"
+        className="fixed top-0 left-0 w-12 h-12 border border-accent-secondary rounded-full pointer-events-none z-[9998] flex items-center justify-center transition-transform duration-300 ease-out"
       >
-         <span className={`text-[3px] font-bold uppercase tracking-widest text-black transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>View</span>
+         <span className={`text-[3px] font-bold uppercase tracking-widest text-accent-secondary transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>View</span>
       </div>
     </>
   );

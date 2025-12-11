@@ -40,7 +40,7 @@ export default function KineticSkills() {
   };
 
   return (
-    <section ref={containerRef} className="relative w-full py-20 bg-neutral-950 text-white overflow-hidden cursor-none">
+    <section ref={containerRef} className="relative w-full py-20 bg-[#8c1921] text-white overflow-hidden cursor-none">
       
       {/* Floating Image Reveal (Follows Cursor) */}
       <div 
@@ -71,13 +71,13 @@ export default function KineticSkills() {
             {SKILLS.map((skill, i) => (
                 <div 
                     key={i}
-                    className="group relative flex items-center justify-between py-12 border-b border-neutral-900 transition-all duration-300 hover:px-8 hover:bg-neutral-900/50"
+                    className="group relative flex items-center justify-between py-12 border-b border-white/20 transition-all duration-300 hover:px-8 hover:bg-black/20"
                     onMouseEnter={() => handleMouseEnter(skill.img)}
                 >
-                    <h3 className="text-5xl md:text-7xl font-black uppercase tracking-tighter text-neutral-400 group-hover:text-white transition-colors duration-300 z-10">
+                    <h3 className="text-5xl md:text-7xl font-black uppercase tracking-tighter text-white/60 group-hover:text-white transition-colors duration-300 z-10">
                         {skill.name}
                     </h3>
-                    <span className="text-sm font-mono text-neutral-600 group-hover:text-red-500 transition-colors duration-300 z-10">
+                    <span className="text-sm font-mono text-white/60 group-hover:text-accent-secondary transition-colors duration-300 z-10">
                         [{skill.category}]
                     </span>
                 </div>

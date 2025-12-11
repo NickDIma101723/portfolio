@@ -16,12 +16,12 @@ export default function FocusGrid() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <section className="relative w-full py-20 bg-neutral-950 overflow-hidden">
-        <div className="px-6 md:px-20 mb-12 flex items-end justify-between border-b border-neutral-800 pb-6">
+    <section className="relative w-full py-20 bg-[#8c1921] overflow-hidden">
+        <div className="px-6 md:px-20 mb-12 flex items-end justify-between border-b border-white/20 pb-6">
             <h2 className="text-6xl md:text-8xl font-black text-white uppercase tracking-tighter leading-none">
-                The <br/> <span className="text-transparent stroke-white" style={{ WebkitTextStroke: "1px white" }}>Archive</span>
+                The <br/> <span className="text-[#fbbf24]">Archive</span>
             </h2>
-            <p className="text-xs font-mono text-neutral-500 uppercase tracking-widest mb-2">
+            <p className="text-xs font-mono text-white/50 uppercase tracking-widest mb-2">
                 [ Select Data Point ]
             </p>
         </div>

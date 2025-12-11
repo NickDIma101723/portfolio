@@ -4,42 +4,43 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 
 export default function Marquee() {
-  const firstText = useRef(null);
-  const secondText = useRef(null);
-  const slider = useRef(null);
+  const textRef = useRef<SVGTextPathElement>(null);
 
   useEffect(() => {
-    let xPercent = 0;
-    const direction = -1;
-    let animationId: number;
-
-    const animate = () => {
-      if (xPercent < -100) {
-        xPercent = 0;
-      } else if (xPercent > 0) {
-        xPercent = -100;
-      }
-      gsap.set(firstText.current, { xPercent: xPercent });
-      gsap.set(secondText.current, { xPercent: xPercent });
-      xPercent += 0.05 * direction;
-      animationId = requestAnimationFrame(animate);
-    };
-
-    animationId = requestAnimationFrame(animate);
-
-    return () => cancelAnimationFrame(animationId);
+    // Animate the startOffset of the textPath to create the loop
+    // The path is 2000 units wide (2 waves). We animate half of it to loop seamlessly if text repeats.
+    gsap.to(textRef.current, {
+      attr: { startOffset: "-100%" }, // Move full length
+      duration: 30,
+      repeat: -1,
+      ease: "none",
+    });
   }, []);
 
   return (
-    <div className="relative flex h-screen w-[100vw] flex-shrink-0 overflow-hidden bg-neutral-900 text-white items-center border-x border-neutral-800 snap-start">
-      <div ref={slider} className="absolute whitespace-nowrap flex">
-        <p ref={firstText} className="text-[10vh] md:text-[15vh] font-bold uppercase tracking-tighter m-0 pr-10 opacity-30">
-          Design • Develop • Deploy •
-        </p>
-        <p ref={secondText} className="text-[10vh] md:text-[15vh] font-bold uppercase tracking-tighter m-0 pr-10 opacity-30">
-          Design • Develop • Deploy •
-        </p>
-      </div>
+    <div className="relative w-full h-[30vh] overflow-hidden bg-[#8c1921] border-y border-[#fbbf24]/20 z-20 flex items-center">
+      <svg className="w-full h-full absolute top-0 left-0" viewBox="0 0 1000 200" preserveAspectRatio="none">
+        {/* 
+            Path Definition:
+            M 0 100: Start at middle height
+            Q 250 0 500 100: Curve up to top, end at middle (500)
+            T 1000 100: Curve down (reflected), end at middle (1000)
+            ... Repeat for length
+        */}
+        <path
+          id="curve"
+          d="M 0 100 Q 250 20 500 100 T 1000 100 T 1500 100 T 2000 100 T 2500 100 T 3000 100"
+          fill="transparent"
+        />
+        <text width="100%" className="text-[60px] font-black uppercase tracking-tighter fill-[#fbbf24]" style={{ fontSize: "60px" }}>
+          <textPath ref={textRef} href="#curve" startOffset="0%">
+             • Design • Develop • Deploy • Design • Develop • Deploy • Design • Develop • Deploy • Design • Develop • Deploy • Design • Develop • Deploy • Design • Develop • Deploy
+          </textPath>
+        </text>
+      </svg>
+      
+      {/* Overlay Gradient for depth */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#8c1921] via-transparent to-[#8c1921] pointer-events-none z-10" />
     </div>
   );
 }
