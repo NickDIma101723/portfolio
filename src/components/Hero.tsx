@@ -83,7 +83,7 @@ export default function Hero() {
   return (
     <section ref={containerRef} className="h-[100dvh] w-full relative flex justify-center items-center overflow-hidden bg-[#8c1921]" style={{ perspective: "1000px" }}>
         
-        <div className="relative z-10 flex flex-col md:flex-row items-center justify-center gap-6 md:gap-6 w-full max-w-[95vw]">
+        <div className="relative z-10 flex flex-col md:flex-row items-center justify-center gap-6 md:gap-6 w-full">
             
             {/* Left Text */}
             <h1 ref={leftTextRef} className="text-[35vw] md:text-[18vw] font-black uppercase tracking-tighter leading-none text-white z-10 will-change-transform select-none">

@@ -57,27 +57,22 @@ export default function About() {
       );
 
       // 2. PHILOSOPHY: HORIZONTAL SCROLL (PINNED)
-      // Only enable on desktop
-      ScrollTrigger.matchMedia({
-        "(min-width: 768px)": function() {
-            const sections = gsap.utils.toArray(".philosophy-item");
-            const track = document.querySelector(".philosophy-track");
-            
-            if (track && sections.length > 0) {
-                gsap.to(sections, {
-                    xPercent: -100 * (sections.length - 1),
-                    ease: "none",
-                    scrollTrigger: {
-                        trigger: ".philosophy-wrapper",
-                        pin: true,
-                        scrub: 1,
-                        snap: 1 / (sections.length - 1),
-                        end: "+=3000", // Adjust scroll length
-                    }
-                });
-            }
-        }
-      });
+      const sections = gsap.utils.toArray(".philosophy-item");
+      const track = document.querySelector(".philosophy-track");
+      
+      if (track && sections.length > 0) {
+          gsap.to(sections, {
+              xPercent: -100 * (sections.length - 1),
+              ease: "none",
+              scrollTrigger: {
+                  trigger: ".philosophy-wrapper",
+                  pin: true,
+                  scrub: 1,
+                  snap: 1 / (sections.length - 1),
+                  end: "+=3000", // Adjust scroll length
+              }
+          });
+      }
 
       // 3. PERSONA: SHATTER REVEAL
       ScrollTrigger.create({
@@ -245,12 +240,12 @@ export default function About() {
         </div>
       </div>
 
-      {/* --- PART 2: THE PHILOSOPHY (Horizontal Scroll on Desktop, Vertical on Mobile) --- */}
+      {/* --- PART 2: THE PHILOSOPHY (Horizontal Scroll) --- */}
       <div className="philosophy-wrapper min-h-screen w-full overflow-hidden bg-[#8c1921] text-white relative z-20">
-        <div className="philosophy-track flex flex-col md:flex-row w-full md:w-[300vw] h-auto md:h-full">
+        <div className="philosophy-track flex flex-row w-[300vw] h-full">
             
             {/* Item 1 */}
-            <div className="philosophy-item w-full md:w-screen h-screen md:h-full flex flex-col md:flex-row items-center justify-center gap-6 md:gap-20 px-4 md:px-20 py-20 md:py-0 border-b md:border-none border-white/10">
+            <div className="philosophy-item w-screen h-full flex flex-col md:flex-row items-center justify-center gap-6 md:gap-20 px-4 md:px-20 py-20 md:py-0 border-none border-white/10">
                 <div className="flex flex-col gap-4 text-center md:text-left">
                     <h2 className="text-[12vw] md:text-[8vw] font-black tracking-tighter leading-none">OBSESSION</h2>
                     <span className="font-mono text-sm tracking-widest uppercase border-b border-white pb-2 w-max mx-auto md:mx-0">01 Focus</span>
@@ -268,7 +263,7 @@ export default function About() {
             </div>
 
             {/* Item 2 */}
-            <div className="philosophy-item w-full md:w-screen h-screen md:h-full flex flex-col md:flex-row items-center justify-center gap-6 md:gap-20 px-4 md:px-20 py-20 md:py-0 border-b md:border-none border-white/10">
+            <div className="philosophy-item w-screen h-full flex flex-col md:flex-row items-center justify-center gap-6 md:gap-20 px-4 md:px-20 py-20 md:py-0 border-none border-white/10">
                 <div className="flex flex-col gap-4 text-center md:text-left">
                     <h2 className="text-[12vw] md:text-[8vw] font-black tracking-tighter leading-none text-[#fbbf24] hover:text-white transition-colors duration-500">PRECISION</h2>
                     <span className="font-mono text-sm tracking-widest uppercase border-b border-white pb-2 w-max mx-auto md:mx-0">02 Code</span>
@@ -286,7 +281,7 @@ export default function About() {
             </div>
 
             {/* Item 3 */}
-            <div className="philosophy-item w-full md:w-screen h-screen md:h-full flex flex-col md:flex-row items-center justify-center gap-6 md:gap-20 px-4 md:px-20 py-20 md:py-0">
+            <div className="philosophy-item w-screen h-full flex flex-col md:flex-row items-center justify-center gap-6 md:gap-20 px-4 md:px-20 py-20 md:py-0">
                 <div className="flex flex-col gap-4 text-center md:text-left">
                     <h2 className="text-[12vw] md:text-[8vw] font-black tracking-tighter leading-none">IMPACT</h2>
                     <span className="font-mono text-sm tracking-widest uppercase border-b border-white pb-2 w-max mx-auto md:mx-0">03 Result</span>
