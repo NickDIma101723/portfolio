@@ -82,13 +82,13 @@ export default function Footer() {
                     <span className="text-white mb-2">Socials</span>
                     <div className="flex gap-6">
                         <Magnetic>
-                            <a href="#" className="hover:text-white transition-colors inline-block">Instagram</a>
+                            <a href="https://www.instagram.com/nik0d_/" target="_blank" className="hover:text-white transition-colors inline-block">Instagram</a>
                         </Magnetic>
                         <Magnetic>
                             <a href="#" className="hover:text-white transition-colors inline-block">Twitter</a>
                         </Magnetic>
                         <Magnetic>
-                            <a href="#" className="hover:text-white transition-colors inline-block">LinkedIn</a>
+                            <a href="https://www.linkedin.com/in/niko-dima-64246b33a/" target="_blank" className="hover:text-white transition-colors inline-block">LinkedIn</a>
                         </Magnetic>
                     </div>
                 </div>

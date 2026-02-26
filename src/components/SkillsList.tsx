@@ -2,7 +2,9 @@
 
 import { useRef, useState, useEffect } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
+import ScrambleText from "./ScrambleText";
 
 const SKILLS = [
   { name: "React / Next.js", category: "Frontend", img: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=1000&auto=format&fit=crop" },
@@ -15,6 +17,7 @@ const SKILLS = [
 
 export default function SkillsList() {
   const [activeSkill, setActiveSkill] = useState<number | null>(null);
+  const [headerVisible, setHeaderVisible] = useState(false);
   const cursorRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -34,19 +37,36 @@ export default function SkillsList() {
 
     window.addEventListener("mousemove", moveCursor);
 
+    gsap.registerPlugin(ScrollTrigger);
+
     // Entrance Animation
     const ctx = gsap.context(() => {
+        
+        // Trigger Header Scramble
+        ScrollTrigger.create({
+            trigger: containerRef.current,
+            start: "top 80%",
+            onEnter: () => setHeaderVisible(true)
+        });
+
+        // Line-by-line staggered reveal
         gsap.fromTo(".skill-item", 
-            { y: 30, opacity: 0 },
+            { 
+               x: -50,
+               opacity: 0,
+               rotationX: 90,
+               transformOrigin: "bottom center"
+            },
             {
-                y: 0,
+                x: 0,
                 opacity: 1,
-                duration: 0.8,
-                stagger: 0.05,
-                ease: "power3.out",
+                rotationX: 0,
+                duration: 1.2,
+                stagger: 0.1,
+                ease: "expo.out",
                 scrollTrigger: {
                     trigger: containerRef.current,
-                    start: "top 85%",
+                    start: "top 80%",
                 }
             }
         );
@@ -57,6 +77,34 @@ export default function SkillsList() {
         ctx.revert();
     };
   }, []);
+
+  // Text Glitch Effect
+  const triggerGlitch = (e: React.MouseEvent<HTMLElement>) => {
+      const target = e.currentTarget.querySelector("h3");
+      if (!target) return;
+      
+      const originalText = target.dataset.text || target.innerText;
+      if (!target.dataset.text) target.dataset.text = originalText;
+      
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()_+";
+      
+      let iterations = 0;
+      const interval = setInterval(() => {
+        target.innerText = originalText
+          .split("")
+          .map((letter: string, index: number) => {
+            if (index < iterations) return originalText[index];
+            return chars[Math.floor(Math.random() * chars.length)];
+          })
+          .join("");
+        
+        if (iterations >= originalText.length) {
+            clearInterval(interval);
+            target.innerText = originalText;
+        }
+        iterations += 1 / 2; // Speed of decode
+      }, 30);
+  };
 
   return (
     <section ref={containerRef} className="relative w-full py-20 md:py-40 text-white overflow-hidden md:cursor-none">
@@ -103,7 +151,7 @@ export default function SkillsList() {
 
       <div className="px-6 md:px-20">
         <h2 className="text-xs font-mono text-[#fbbf24] uppercase tracking-widest mb-12 border-b border-white/20 pb-4">
-            [ Technical Arsenal ]
+            <ScrambleText text="[ Technical Arsenal ]" trigger={headerVisible} className="inline-block" />
         </h2>
 
         <div className="flex flex-col">
@@ -111,7 +159,10 @@ export default function SkillsList() {
                 <div 
                     key={i}
                     className="skill-item group relative flex items-center justify-between py-6 md:py-12 border-b border-white/20 transition-all duration-300 hover:bg-black z-20 cursor-pointer md:cursor-none"
-                    onMouseEnter={() => setActiveSkill(i)}
+                    onMouseEnter={(e) => {
+                        setActiveSkill(i);
+                        triggerGlitch(e);
+                    }}
                     onMouseLeave={() => setActiveSkill(null)}
                     onClick={() => setActiveSkill(activeSkill === i ? null : i)}
                 >

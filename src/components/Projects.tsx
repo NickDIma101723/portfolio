@@ -16,7 +16,17 @@ const projects = [
     src: "/aria.png",
     description: "A revolutionary approach to personal fitness tracking.",
     link: "https://aria-health.netlify.app/",
-    imgClass: "opacity-80 grayscale-0"
+    imgClass: "opacity-80 grayscale-0",
+    technologies: ["React Native", "Supabase", "Reanimated"]
+  },
+  {
+    title: "Melograph",
+    category: "Creative Studio",
+    year: "2024",
+    src: "/image copy 2.png",
+    description: "High-performance digital experiences and motion design.",
+    link: "https://melographstudio.online/",
+    technologies: ["Next.js", "GSAP", "Sass", "Neon"]
   },
   {
     title: "Museum",
@@ -25,42 +35,8 @@ const projects = [
     src: "/museum.png",
     description: "A digital archive of modern art and culture.",
     link: "https://museuum.netlify.app/",
-    imgClass: "opacity-80 grayscale-0"
-  },
-  {
-    title: "Ethereal",
-    category: "Web Design",
-    year: "2024",
-    src: "https://images.unsplash.com/photo-1481437156560-3205f6a55735?q=80&w=2695&auto=format&fit=crop",
-    description: "Redefining digital aesthetics through minimalism.",
-  },
-  {
-    title: "Vanguard",
-    category: "Development",
-    year: "2023",
-    src: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2670&auto=format&fit=crop",
-    description: "Next-generation financial platform interface.",
-  },
-  {
-    title: "Lumina",
-    category: "Art Direction",
-    year: "2023",
-    src: "https://images.unsplash.com/photo-1515462277126-2dd0c162007a?q=80&w=2671&auto=format&fit=crop",
-    description: "Lighting the way for modern architectural brands.",
-  },
-  {
-    title: "Apex",
-    category: "Concept",
-    year: "2022",
-    src: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop",
-    description: "Pushing the boundaries of automotive web experiences.",
-  },
-  {
-    title: "Horizon",
-    category: "Immersive",
-    year: "2022",
-    src: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2000&auto=format&fit=crop",
-    description: "Virtual reality landscapes for the digital explorer.",
+    imgClass: "opacity-80 grayscale-0",
+    technologies: ["React", "GSAP", "Locomotive Scroll", "WebGL"]
   }
 ];
 
@@ -202,7 +178,7 @@ export default function Projects() {
                       <div className="absolute bottom-8 right-8 w-24 h-24 border-r-4 border-b-4 border-white/30 group-hover:border-[#fbbf24] transition-colors duration-500 reveal-text" />
 
                       {/* Top Bar */}
-                      <div className="flex justify-between items-start reveal-text">
+                      <div className="flex justify-between items-start reveal-text w-full z-30">
                           <div className="flex flex-col gap-2">
                               <div className="flex items-center gap-3 bg-black/60 md:bg-white/5 px-4 py-2 md:backdrop-blur-md border border-white/10">
                                 <span className="w-2 h-2 bg-[#fbbf24] animate-pulse" />
@@ -235,14 +211,29 @@ export default function Projects() {
                           </div>
                       </div>
 
-                      {/* Bottom Content */}
-                      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 reveal-text">
-                          <div className="max-w-xl bg-black/80 md:bg-black/40 md:backdrop-blur-md p-6 border border-white/10">
-                            <p className="text-xl md:text-3xl text-white font-light leading-tight mb-4">
-                                {project.description}
-                            </p>
-                            <div className="h-1 w-20 bg-[#fbbf24] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
-                          </div>
+                          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 reveal-text w-full">
+                              <div className="flex flex-col gap-6 max-w-xl">
+                                  <div className="bg-black/80 md:bg-black/40 md:backdrop-blur-md p-6 border border-white/10 relative group/desc overflow-hidden">
+                                    <p className="text-xl md:text-3xl text-white font-light leading-tight relative z-10">
+                                        {project.description}
+                                    </p>
+                                    <div className="absolute bottom-0 left-0 h-1 w-full bg-[#fbbf24] transform scale-x-0 group-hover/desc:scale-x-100 transition-transform duration-500 origin-left" />
+                                  </div>
+
+                                  {/* Tech Stack - Bottom Left placement for better visibility */}
+                                  {project.technologies && (
+                                    <div className="flex flex-wrap gap-2">
+                                        {project.technologies.map((tech, idx) => (
+                                            <span 
+                                                key={idx} 
+                                                className="px-3 py-1 bg-white/5 hover:bg-[#fbbf24] hover:text-black text-white/60 text-[10px] uppercase font-mono tracking-widest border border-white/10 hover:border-[#fbbf24] transition-all duration-300 cursor-default backdrop-blur-sm"
+                                            >
+                                                {tech}
+                                            </span>
+                                        ))}
+                                    </div>
+                                  )}
+                              </div>
                           
                           {project.link ? (
                             <Link href={project.link} target="_blank" className="group/btn relative cursor-pointer overflow-hidden border border-white/20 bg-black/20 px-8 py-4 backdrop-blur-sm transition-all duration-300 hover:border-[#fbbf24]">
