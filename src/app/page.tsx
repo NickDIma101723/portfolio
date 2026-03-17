@@ -9,10 +9,14 @@ import LoadingAnimations from "@/components/LoadingAnimations";
 import CustomCursor from "@/components/CustomCursor";
 import SmoothScroll from "@/components/SmoothScroll";
 import Marquee from "@/components/Marquee";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    console.log("i need a job UwU")
+  },[])
 
   return (
     <SmoothScroll>
