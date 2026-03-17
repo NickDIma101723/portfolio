@@ -15,7 +15,6 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    console.log("i need a job UwU")
   },[])
 
   return (
