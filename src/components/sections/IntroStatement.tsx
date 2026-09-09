@@ -57,7 +57,7 @@ export default function IntroStatement() {
       const rect = section.getBoundingClientRect();
       width = rect.width;
       height = rect.height;
-      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      dpr = Math.min(window.devicePixelRatio || 1, 1);
       canvas.width = Math.round(width * dpr);
       canvas.height = Math.round(height * dpr);
       canvas.style.width = `${width}px`;
@@ -70,15 +70,12 @@ export default function IntroStatement() {
       const sampleContext = sample.getContext("2d", { willReadFrequently: true });
       if (!sampleContext) return;
 
-      const caveat = getComputedStyle(document.documentElement)
-        .getPropertyValue("--font-caveat")
-        .trim() || "cursive";
       const lines = ["I turn curious ideas", "into playful", "digital experiences", "that feel alive."];
       let fontSize = Math.min(width * 0.17, height * 0.185, 180);
 
       sampleContext.clearRect(0, 0, width, height);
       sampleContext.fillStyle = "#111";
-      sampleContext.font = `600 ${fontSize}px ${caveat}, cursive`;
+      sampleContext.font = `600 ${fontSize}px cursive`;
       sampleContext.textAlign = "center";
       sampleContext.textBaseline = "middle";
 
@@ -87,7 +84,7 @@ export default function IntroStatement() {
         && Math.max(...lines.map((line) => sampleContext.measureText(line).width)) > width * 0.88
       ) {
         fontSize -= 2;
-        sampleContext.font = `600 ${fontSize}px ${caveat}, cursive`;
+        sampleContext.font = `600 ${fontSize}px cursive`;
       }
 
       const lineHeight = fontSize * 1.02;
@@ -98,7 +95,7 @@ export default function IntroStatement() {
       });
 
       const image = sampleContext.getImageData(0, 0, sample.width, sample.height);
-      const gap = width < 700 ? 6 : 7;
+      const gap = width < 900 ? 8 : 9;
       const next: Particle[] = [];
 
       for (let y = 0; y < sample.height; y += gap) {
