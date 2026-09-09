@@ -73,7 +73,7 @@ export default function IntroStatement() {
       const instrumentSerif = getComputedStyle(document.documentElement)
         .getPropertyValue("--font-instrument-serif")
         .trim() || "Georgia";
-      const lines = ["I turn curious", "ideas into", "playful digital", "experiences that", "feel alive."];
+      const lines = ["I turn curious ideas", "into playful digital", "experiences that", "feel alive."];
       let fontSize = Math.min(width * 0.2, height * 0.2, 220);
 
       sampleContext.clearRect(0, 0, width, height);
@@ -84,7 +84,7 @@ export default function IntroStatement() {
 
       while (
         fontSize > 42
-        && Math.max(...lines.map((line) => sampleContext.measureText(line).width)) > width * 0.92
+        && Math.max(...lines.map((line) => sampleContext.measureText(line).width)) > width * 0.96
       ) {
         fontSize -= 2;
         sampleContext.font = `italic 400 ${fontSize}px ${instrumentSerif}, Georgia, serif`;
