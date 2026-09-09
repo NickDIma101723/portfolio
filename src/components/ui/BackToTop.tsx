@@ -58,10 +58,10 @@ export default function BackToTop() {
       className={s.button}
       data-visible={isVisible}
       onClick={scrollBackUp}
-      aria-label="Go back up"
+      aria-label="Back to top"
       data-sound="tick"
     >
-      <span>Go back up</span>
+      <span>Back to top</span>
       <PixelArrowUp />
     </button>
   );
