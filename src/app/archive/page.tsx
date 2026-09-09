@@ -116,7 +116,13 @@ export default function Archive() {
           >
             <span className={s.index}>0{index + 1}</span>
 
-            <Link href={`/case/${project.slug}`} className={s.visual}>
+            <a
+              href={project.liveUrl}
+              className={s.visual}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`Open ${project.title} live site`}
+            >
               <Image
                 src={previews[project.slug] ?? project.src}
                 alt={`${project.title} project preview`}
@@ -125,7 +131,7 @@ export default function Archive() {
                 sizes="(max-width: 800px) 92vw, 62vw"
                 priority={index === 0}
               />
-            </Link>
+            </a>
 
             <div className={s.projectCopy}>
               <div className={s.projectMeta}>
@@ -142,10 +148,15 @@ export default function Archive() {
                 ))}
               </div>
 
-              <Link href={`/case/${project.slug}`} className={s.viewLink}>
-                <span>View project</span>
+              <a
+                href={project.liveUrl}
+                className={s.viewLink}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <span>View live site</span>
                 <span className={s.viewArrow} aria-hidden="true">↗</span>
-              </Link>
+              </a>
             </div>
           </article>
         ))}

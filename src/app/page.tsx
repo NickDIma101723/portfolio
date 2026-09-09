@@ -5,6 +5,7 @@ import CraftBuild from "@/components/sections/CraftBuild";
 import About from "@/components/sections/About";
 import Projects from "@/components/sections/Projects";
 import Contact from "@/components/sections/Contact";
+import BackToTop from "@/components/ui/BackToTop";
 import LoadingGate from "./LoadingGate";
 import s from './page.module.scss';
 
@@ -20,6 +21,7 @@ export default function Home() {
       <About />
       <Projects />
       <Contact />
+      <BackToTop />
     </main>
   );
 }

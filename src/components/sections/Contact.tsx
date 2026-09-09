@@ -16,14 +16,6 @@ function PixelArrow() {
   );
 }
 
-function PixelUpArrow() {
-  return (
-    <svg className={s.backToTopArrow} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M4 11h11V7h2v2h2v2h2v2h-2v2h-2v2h-2v-4H4z" />
-    </svg>
-  );
-}
-
 function PixelExternalArrow() {
   return (
     <svg className={s.socialArrow} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -114,10 +106,6 @@ export default function Contact() {
               ))}
             </span>
             <PixelArrow />
-          </a>
-          <a href="#top" className={s.copyButton}>
-            <span>Back to top</span>
-            <PixelUpArrow />
           </a>
         </div>
       </div>

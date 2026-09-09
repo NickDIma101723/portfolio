@@ -10,6 +10,18 @@ type Panel = "languages" | "tools" | "stack";
 type WindowMode = "open" | "minimized" | "maximized" | "closed";
 type DesktopDialog = "computer" | "projects" | "cv" | null;
 
+const DUTCH_TIME_ZONE = "Europe/Amsterdam";
+const dutchTimeFormatter = new Intl.DateTimeFormat("nl-NL", {
+  hour: "2-digit",
+  minute: "2-digit",
+  hourCycle: "h23",
+  timeZone: DUTCH_TIME_ZONE,
+});
+
+function getDutchTime() {
+  return dutchTimeFormatter.format(new Date());
+}
+
 const screens: Record<Panel, {
   index: string;
   label: string;
@@ -67,6 +79,7 @@ export default function CraftBuild() {
   const [isBooting, setIsBooting] = useState(false);
   const [desktopDialog, setDesktopDialog] = useState<DesktopDialog>(null);
   const [isMobileExpanded, setIsMobileExpanded] = useState(false);
+  const [dutchTime, setDutchTime] = useState(getDutchTime);
 
   const togglePower = () => {
     if (isPowered) {
@@ -83,6 +96,11 @@ export default function CraftBuild() {
     const timer = window.setTimeout(() => setIsBooting(false), 1350);
     return () => window.clearTimeout(timer);
   }, [isBooting]);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => setDutchTime(getDutchTime()), 15_000);
+    return () => window.clearInterval(timer);
+  }, []);
 
   useEffect(() => {
     if (!isMobileExpanded) return;
@@ -243,7 +261,7 @@ export default function CraftBuild() {
               <div><span>{desktopDialog === "computer" ? "my-computer.exe" : desktopDialog === "projects" ? "projects.dir" : "niko-dima-cv.pdf"}</span><button type="button" aria-label="Close window" onClick={() => setDesktopDialog(null)}>×</button></div>
               {desktopDialog === "computer" && <p><b>LOCAL DISK (N:)</b><span>Creative development · UI/UX · Motion</span></p>}
               {desktopDialog === "projects" && <p><b>SELECTED WORK</b><span>Melograph · Aria · More experiments</span><a href="#projects">Open projects</a></p>}
-              {desktopDialog === "cv" && <p><b>NIKO DIMA · CV</b><span>Experience, skills, education, and contact details.</span><span className={s.cvActions}><a href="/Niko-Dima-CV.pdf" target="_blank" rel="noreferrer">Open CV</a><a href="/Niko-Dima-CV.pdf" download="Niko-Dima-CV.pdf">Download CV</a></span></p>}
+              {desktopDialog === "cv" && <p><b>NIKO DIMA · CV</b><span>Experience, skills, education, and contact details.</span><span className={s.cvActions}><a href="/cv">Open CV</a><a href="/Niko-Dima-CV.pdf" download="Niko-Dima-CV.pdf">Download CV</a></span></p>}
             </div>
           )}
 
@@ -285,7 +303,13 @@ export default function CraftBuild() {
           <div className={s.taskbar}>
             <button type="button" className={s.startButton}><i /><span>start</span></button>
             <button type="button" className={s.openApp} onClick={() => setWindowMode("open")}>{screen.label}.APP</button>
-            <div className={s.systemTray}><span className={s.trayIcons} aria-hidden="true"><Signal /><Volume2 /><BatteryFull /></span><span>ONLINE</span><time>02:07</time></div>
+            <div className={s.systemTray}>
+              <span className={s.trayIcons} aria-hidden="true"><Signal /><Volume2 /><BatteryFull /></span>
+              <span>ONLINE</span>
+              <time dateTime={DUTCH_TIME_ZONE} title="Netherlands time" suppressHydrationWarning>
+                {dutchTime}
+              </time>
+            </div>
           </div>
           {isBooting && <div className={s.bootScreen} role="status"><strong>NIKO OS</strong><span>Loading desktop</span><i /></div>}
         </div>

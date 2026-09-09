@@ -93,7 +93,7 @@ export default function Footer() {
 
                 <div className={s.version}>
                     <span className={s.versionLabel}>Version</span>
-                    <span>2025 Edition</span>
+                    <span>2026 Model</span>
                 </div>
             </div>
         </div>

@@ -148,10 +148,10 @@ export default function IntroStatement() {
             particle.vy += (dy / distance) * force;
           }
 
-          particle.vx += (particle.tx - particle.x) * 0.075;
-          particle.vy += (particle.ty - particle.y) * 0.075;
-          particle.vx *= 0.8;
-          particle.vy *= 0.8;
+          particle.vx += (particle.tx - particle.x) * 0.16;
+          particle.vy += (particle.ty - particle.y) * 0.16;
+          particle.vx *= 0.68;
+          particle.vy *= 0.68;
           particle.x += particle.vx;
           particle.y += particle.vy;
         } else {
@@ -204,13 +204,13 @@ export default function IntroStatement() {
 
     const entrance = gsap.fromTo(
       canvas,
-      { opacity: 0, scale: 0.9, filter: "blur(10px)" },
+      { opacity: 0, scale: 0.975, filter: "blur(4px)" },
       {
         opacity: 1,
         scale: 1,
         filter: "blur(0px)",
-        duration: 0.45,
-        ease: "power3.out",
+        duration: 0.22,
+        ease: "power4.out",
         paused: true,
       },
     );

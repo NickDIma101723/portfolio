@@ -139,10 +139,12 @@ export default function Projects() {
 
       <div className={s.projectList}>
         {projects.map((project, index) => (
-          <Link
-            href={`/case/${project.slug}`}
+          <a
+            href={project.liveUrl}
             key={project.slug}
             className={s.project}
+            target="_blank"
+            rel="noreferrer"
             onClick={() =>
               window.dispatchEvent(
                 new CustomEvent("sound-play", { detail: { sound: "longclick" } }),
@@ -154,7 +156,7 @@ export default function Projects() {
                 <h3>{project.title}</h3>
                 <span>{project.category}</span>
               </div>
-              <span className={s.jump}>Jump to project</span>
+              <span className={s.jump}>Open live site</span>
             </div>
 
             <div className={s.media}>
@@ -184,7 +186,7 @@ export default function Projects() {
                 </div>
               </div>
             </div>
-          </Link>
+          </a>
         ))}
       </div>
 
