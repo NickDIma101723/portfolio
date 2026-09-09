@@ -73,8 +73,8 @@ export default function IntroStatement() {
       const caveat = getComputedStyle(document.documentElement)
         .getPropertyValue("--font-caveat")
         .trim() || "cursive";
-      const lines = ["I turn curious ideas", "into playful digital", "experiences that", "feel alive."];
-      let fontSize = Math.min(width * 0.2, height * 0.2, 220);
+      const lines = ["I turn curious ideas", "into playful", "digital experiences", "that feel alive."];
+      let fontSize = Math.min(width * 0.17, height * 0.185, 180);
 
       sampleContext.clearRect(0, 0, width, height);
       sampleContext.fillStyle = "#111";
@@ -84,13 +84,13 @@ export default function IntroStatement() {
 
       while (
         fontSize > 42
-        && Math.max(...lines.map((line) => sampleContext.measureText(line).width)) > width * 0.96
+        && Math.max(...lines.map((line) => sampleContext.measureText(line).width)) > width * 0.88
       ) {
         fontSize -= 2;
         sampleContext.font = `600 ${fontSize}px ${caveat}, cursive`;
       }
 
-      const lineHeight = fontSize * 0.9;
+      const lineHeight = fontSize * 1.02;
 
       const firstY = height / 2 - ((lines.length - 1) * lineHeight) / 2;
       lines.forEach((line, index) => {
