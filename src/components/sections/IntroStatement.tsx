@@ -70,15 +70,15 @@ export default function IntroStatement() {
       const sampleContext = sample.getContext("2d", { willReadFrequently: true });
       if (!sampleContext) return;
 
-      const caveat = getComputedStyle(document.documentElement)
-        .getPropertyValue("--font-caveat")
-        .trim() || "cursive";
+      const instrumentSerif = getComputedStyle(document.documentElement)
+        .getPropertyValue("--font-instrument-serif")
+        .trim() || "Georgia";
       const lines = ["I turn curious ideas", "into playful", "digital experiences", "that feel alive."];
       let fontSize = Math.min(width * 0.17, height * 0.185, 180);
 
       sampleContext.clearRect(0, 0, width, height);
       sampleContext.fillStyle = "#111";
-      sampleContext.font = `600 ${fontSize}px ${caveat}, cursive`;
+      sampleContext.font = `italic 400 ${fontSize}px ${instrumentSerif}, Georgia, serif`;
       sampleContext.textAlign = "center";
       sampleContext.textBaseline = "middle";
 
@@ -87,7 +87,7 @@ export default function IntroStatement() {
         && Math.max(...lines.map((line) => sampleContext.measureText(line).width)) > width * 0.88
       ) {
         fontSize -= 2;
-        sampleContext.font = `600 ${fontSize}px ${caveat}, cursive`;
+        sampleContext.font = `italic 400 ${fontSize}px ${instrumentSerif}, Georgia, serif`;
       }
 
       const lineHeight = fontSize * 1.02;
