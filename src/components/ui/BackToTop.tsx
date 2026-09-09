@@ -17,6 +17,7 @@ function PixelArrowUp() {
 
 export default function BackToTop() {
   const [isVisible, setIsVisible] = useState(false);
+  const [isContactActive, setIsContactActive] = useState(false);
 
   useEffect(() => {
     let frame = 0;
@@ -40,6 +41,19 @@ export default function BackToTop() {
     };
   }, []);
 
+  useEffect(() => {
+    const contact = document.querySelector<HTMLElement>("#contact");
+    if (!contact) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsContactActive(entry.isIntersecting),
+      { rootMargin: "-40% 0px -40% 0px" },
+    );
+
+    observer.observe(contact);
+    return () => observer.disconnect();
+  }, []);
+
   const scrollBackUp = () => {
     window.dispatchEvent(new CustomEvent("sound-play", { detail: { sound: "tick" } }));
 
@@ -57,6 +71,7 @@ export default function BackToTop() {
       type="button"
       className={s.button}
       data-visible={isVisible}
+      data-contact-active={isContactActive}
       onClick={scrollBackUp}
       aria-label="Back to top"
       data-sound="tick"

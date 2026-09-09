@@ -37,6 +37,12 @@
     transform: translateY(0) rotate(1.5deg);
   }
 
+  &[data-contact-active="true"] {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(calc(100% + 3rem)) rotate(4deg);
+  }
+
   &:hover,
   &:focus-visible {
     background: #b6ff00;

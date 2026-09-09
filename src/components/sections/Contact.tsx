@@ -8,6 +8,10 @@ import s from "./Contact.module.scss";
 const EMAIL = "nikodima2007@gmail.com";
 const MAILTO = `mailto:${EMAIL}?subject=${encodeURIComponent("Portfolio project enquiry")}`;
 
+type LenisWithScrollTo = {
+  scrollTo?: (target: number | string, options?: { duration?: number }) => void;
+};
+
 function PixelArrow() {
   return (
     <svg className={s.pixelArrow} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -26,6 +30,18 @@ function PixelExternalArrow() {
 
 export default function Contact() {
   const sectionRef = useRef<HTMLElement>(null);
+
+  const scrollBackUp = () => {
+    window.dispatchEvent(new CustomEvent("sound-play", { detail: { sound: "tick" } }));
+
+    const lenis = window.lenis as LenisWithScrollTo | undefined;
+    if (lenis?.scrollTo) {
+      lenis.scrollTo(0, { duration: 0.85 });
+      return;
+    }
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   useLayoutEffect(() => {
     const section = sectionRef.current;
@@ -111,9 +127,18 @@ export default function Contact() {
       </div>
       <div className={s.bottom}>
         <span>Niko Dima © 2026 Model</span>
-        <nav className={s.socials} aria-label="Social links">
+        <nav className={s.socials} aria-label="Footer links">
           <a href="https://www.instagram.com/nik0d_/" target="_blank" rel="noreferrer"><span>Instagram</span><PixelExternalArrow /></a>
           <a href="https://www.linkedin.com/in/niko-dima-64246b33a/" target="_blank" rel="noreferrer"><span>LinkedIn</span><PixelExternalArrow /></a>
+          <button
+            type="button"
+            className={s.backToTopButton}
+            onClick={scrollBackUp}
+            data-sound="tick"
+          >
+            <span>Back to top</span>
+            <PixelArrow />
+          </button>
         </nav>
         <span aria-hidden="true" />
       </div>

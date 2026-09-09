@@ -172,37 +172,31 @@
 .pixelArrow { width: clamp(1.8rem, 3.4vw, 3.6rem); height: clamp(1.8rem, 3.4vw, 3.6rem); flex: 0 0 auto; transform: rotate(-45deg); transition: transform 450ms cubic-bezier(0.16, 1, 0.3, 1); }
 .emailLink:hover .pixelArrow, .emailLink:focus-visible .pixelArrow { transform: translate(0.28rem, -0.28rem) rotate(-45deg); }
 
-.copyButton {
-  position: relative;
+.backToTopButton {
   display: inline-flex;
-  flex: 0 0 auto;
   align-items: center;
   gap: 0.4rem;
-  padding: 0.35rem 0;
+  padding: 0;
   border: 0;
   background: transparent;
   color: inherit;
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
-  font-size: 0.78rem;
-  font-weight: 700;
-  text-decoration: none;
+  font: inherit;
   cursor: pointer;
 }
 
-.backToTopArrow {
+.backToTopButton .pixelArrow {
   width: 1rem;
   height: 1rem;
   transform: rotate(-90deg);
-  transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.copyButton:hover .backToTopArrow,
-.copyButton:focus-visible .backToTopArrow {
+.backToTopButton:hover .pixelArrow,
+.backToTopButton:focus-visible .pixelArrow {
   transform: translateY(-0.2rem) rotate(-90deg);
 }
 
 .bottom { align-items: end; }
-.socials { display: flex; justify-self: center; gap: 1.5rem; }
+.socials { display: flex; flex-wrap: wrap; justify-self: center; gap: 1.5rem; }
 .socials a { display: inline-flex; align-items: center; gap: 0.35rem; color: inherit; text-decoration: none; }
 .socialArrow { width: 0.9rem; height: 0.9rem; transform: rotate(-45deg); transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1); }
 .socials a:hover .socialArrow, .socials a:focus-visible .socialArrow { transform: translate(0.16rem, -0.16rem) rotate(-45deg); }
@@ -232,5 +226,5 @@
 @media (prefers-reduced-motion: reduce) {
   .atOrbit { animation: none; }
   .atSymbol::before, .atSymbol > span, .atOrbit text { transition: none; }
-  .pixelArrow, .backToTopArrow, .socialArrow, .emailCharacter, .copyButton { transition: none !important; }
+  .pixelArrow, .socialArrow, .emailCharacter, .backToTopButton { transition: none !important; }
 }
