@@ -257,11 +257,26 @@ export default function CraftBuild() {
           </div>
 
           {desktopDialog && (
-            <div className={s.desktopDialog} role="dialog" aria-label={desktopDialog === "computer" ? "My Computer" : desktopDialog === "projects" ? "Projects" : "Niko's CV"}>
+            <div className={`${s.desktopDialog} ${desktopDialog === "cv" ? s.cvDialog : ""}`} role="dialog" aria-label={desktopDialog === "computer" ? "My Computer" : desktopDialog === "projects" ? "Projects" : "Niko's CV"}>
               <div><span>{desktopDialog === "computer" ? "my-computer.exe" : desktopDialog === "projects" ? "projects.dir" : "niko-dima-cv.pdf"}</span><button type="button" aria-label="Close window" onClick={() => setDesktopDialog(null)}>×</button></div>
               {desktopDialog === "computer" && <p><b>LOCAL DISK (N:)</b><span>Creative development · UI/UX · Motion</span></p>}
               {desktopDialog === "projects" && <p><b>SELECTED WORK</b><span>Melograph · Aria · More experiments</span><a href="#projects">Open projects</a></p>}
-              {desktopDialog === "cv" && <p><b>NIKO DIMA · CV</b><span>Experience, skills, education, and contact details.</span><span className={s.cvActions}><a href="/cv">Open CV</a><a href="/Niko-Dima-CV.pdf" download="Niko-Dima-CV.pdf">Download CV</a></span></p>}
+              {desktopDialog === "cv" && (
+                <div className={s.cvViewer}>
+                  <div className={s.cvToolbar}>
+                    <span>NIKO DIMA / CURRICULUM VITAE</span>
+                    <a href="/Niko-Dima-CV.pdf" download="Niko-Dima-CV.pdf">Download</a>
+                  </div>
+                  <object
+                    className={s.cvPdf}
+                    data="/Niko-Dima-CV.pdf#view=FitH&toolbar=0"
+                    type="application/pdf"
+                    aria-label="Niko Dima curriculum vitae"
+                  >
+                    <p>Your browser cannot show the PDF here. <a href="/Niko-Dima-CV.pdf">Open the CV</a></p>
+                  </object>
+                </div>
+              )}
             </div>
           )}
 
