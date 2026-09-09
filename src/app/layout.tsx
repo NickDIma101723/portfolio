@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import { Geist, Geist_Mono, Instrument_Serif, Caveat } from "next/font/google";
 import "../styles/globals.scss";
 import SmoothScroll from "@/components/layout/SmoothScroll";
@@ -30,6 +31,13 @@ const instrumentSerif = Instrument_Serif({
   display: "swap",
 });
 
+const fontVariables = {
+  "--font-geist-sans": geistSans.style.fontFamily,
+  "--font-geist-mono": geistMono.style.fontFamily,
+  "--font-caveat": caveat.style.fontFamily,
+  "--font-instrument-serif": instrumentSerif.style.fontFamily,
+} as CSSProperties;
+
 export const metadata: Metadata = {
   title: "NIKO.STUDIOS - Portfolio",
   description: "Creative portfolio showcasing design and development work",
@@ -41,7 +49,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning style={fontVariables}>
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -49,9 +57,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} ${caveat.variable} ${instrumentSerif.variable}`}
-      >
+      <body>
         <SmoothScroll>
             <GrainOverlay />
             <SoundEffects />
