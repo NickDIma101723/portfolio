@@ -110,7 +110,7 @@ export default function Contact() {
         </div>
       </div>
       <div className={s.bottom}>
-        <span>Niko Dima © 2026</span>
+        <span>Niko Dima © 2026 Model</span>
         <nav className={s.socials} aria-label="Social links">
           <a href="https://www.instagram.com/nik0d_/" target="_blank" rel="noreferrer"><span>Instagram</span><PixelExternalArrow /></a>
           <a href="https://www.linkedin.com/in/niko-dima-64246b33a/" target="_blank" rel="noreferrer"><span>LinkedIn</span><PixelExternalArrow /></a>
