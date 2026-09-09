@@ -41,7 +41,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${geistSans.variable} ${geistMono.variable} ${caveat.variable} ${instrumentSerif.variable}`}
+    >
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -49,9 +53,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} ${caveat.variable} ${instrumentSerif.variable}`}
-      >
+      <body>
         <SmoothScroll>
             <GrainOverlay />
             <SoundEffects />
