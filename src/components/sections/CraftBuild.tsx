@@ -264,7 +264,10 @@ export default function CraftBuild() {
               {desktopDialog === "cv" && (
                 <div className={s.cvViewer}>
                   <div className={s.cvToolbar}>
-                    <span>NIKO DIMA / CURRICULUM VITAE</span>
+                    <span className={s.cvTitle}>
+                      <span className={s.cvTitleLong}>NIKO DIMA / CURRICULUM VITAE</span>
+                      <span className={s.cvTitleShort}>NIKO DIMA / CV</span>
+                    </span>
                     <a href="/Niko-Dima-CV.pdf" download="Niko-Dima-CV.pdf">Download</a>
                   </div>
                   <object
